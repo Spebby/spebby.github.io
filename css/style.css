@@ -1,0 +1,146 @@
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+.icon {
+    width: 2em;
+    height: 2em;
+    margin: 4px;
+    border-radius: 4px;
+}
+
+.icon.newgrounds {
+    border-radius: 0;
+}
+
+.icon:hover {
+    opacity: .5;
+}
+
+.banner {
+    background-color: whitesmoke;
+    color: #222;
+}
+
+.header {
+    margin-top: 2%;
+    display: flex;
+    padding: 2.5%;
+
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (min-width: 1000px) {
+    .header {
+        flex-direction: row;
+    }
+}
+
+.title-logo {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+}
+
+.logo #magpie {
+    transition: 0.2s ease-in-out transform;
+}
+
+.logo:hover #magpie {
+    transform: translate(60px, -40px) rotate(15deg);
+}
+
+.title {
+    color: #222;
+    text-decoration: none;
+    font-variation-settings: "wdth" 100, "SPAC" 0;
+}
+
+.title h1 {
+    transition: 0.2s ease-in-out font-variation-settings;
+}
+
+.title:hover h1 {
+    font-variation-settings: "wght" 900, "wdth" 100, "SPAC" 0;
+}
+
+
+.socials {
+    align-content : center;
+
+    display : flex;
+    flex-direction : row;
+    flex-wrap : nowrap;
+    justify-content : flex-start
+}
+
+.socials>a>img {
+    height : 1.8em;
+    width  : 1.8em;
+    
+    border : none;
+    border-radius : 5px;
+
+    cursor : pointer;
+    transition : 0.3s;
+}
+
+.socials>a>img:hover {
+    opacity : 0.7;
+}
+
+.socials>a {
+    align-self : auto;
+    flex : 0 1 auto
+}
+
+.links {
+    align-items: stretch;
+
+    align-content: center;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
+
+.subpage {
+    border : 2px solid #222;
+    flex: 1 1 auto;
+    margin : 0;
+    padding : 15%;
+
+    min-width: 75px;
+    max-width: 800px;
+
+    text-align: center;
+    text-decoration: none;
+    text-decoration-color: currentcolor;
+    transition: .3s;
+
+    text-decoration-color: currentcolor;
+}
+
+.subpage:hover {
+    opacity: 50%;
+}
