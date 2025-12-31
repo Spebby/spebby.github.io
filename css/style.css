@@ -6,9 +6,20 @@ canvas {
     pointer-events: none;
 }
 
-.content {
+html, body {
+    overflow-x: hidden;
+    overscroll-behavior: none; /* Prevents bounce/overscroll */
     position: relative;
-    z-index: 1;
+    min-height: 100vh;
+	scroll-behavior: smooth;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+footer {
+    margin-top: auto;
 }
 
 .icon {
@@ -17,72 +28,6 @@ canvas {
     margin: 4px;
     border-radius: 4px;
 }
-
-.icon.newgrounds {
-    border-radius: 0;
-}
-
-.icon:hover {
-    opacity: .5;
-}
-
-.banner {
-    background-color: whitesmoke;
-    color: #222;
-}
-
-.header {
-    margin-top: 2%;
-    display: flex;
-    padding: 2.5%;
-
-    border-top: 1px solid #222;
-    border-bottom: 1px solid #222;
-
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-}
-
-@media (min-width: 1000px) {
-    .header {
-        flex-direction: row;
-    }
-}
-
-.title-logo {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.logo {
-    width: 100px;
-    height: 100px;
-}
-
-.logo #magpie {
-    transition: 0.2s ease-in-out transform;
-}
-
-.logo:hover #magpie {
-    transform: translate(60px, -40px) rotate(15deg);
-}
-
-.title {
-    color: #222;
-    text-decoration: none;
-    font-variation-settings: "wdth" 100, "SPAC" 0;
-}
-
-.title h1 {
-    transition: 0.2s ease-in-out font-variation-settings;
-}
-
-.title:hover h1 {
-    font-variation-settings: "wght" 900, "wdth" 100, "SPAC" 0;
-}
-
 
 .socials {
     align-content : center;
@@ -113,34 +58,77 @@ canvas {
     flex : 0 1 auto
 }
 
-.links {
-    align-items: stretch;
-
-    align-content: center;
-    backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
-}
-
-.subpage {
-    border : 2px solid #222;
-    flex: 1 1 auto;
-    margin : 0;
-    padding : 15%;
-
-    min-width: 75px;
-    max-width: 800px;
-
-    text-align: center;
+.title {
+    color: #222;
     text-decoration: none;
-    text-decoration-color: currentcolor;
-    transition: .3s;
-
-    text-decoration-color: currentcolor;
+    font-variation-settings: "wdth" 100, "SPAC" 0;
 }
 
-.subpage:hover {
-    opacity: 50%;
+.title h1 {
+    transition: 0.2s ease-in-out font-variation-settings;
+}
+
+.title:hover h1 {
+    font-variation-settings: "wght" 900, "wdth" 100, "SPAC" 0;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 120px 0;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+}
+
+/* Section Styles */
+.section-padding {
+    padding: 80px 0;
+}
+
+.section-title {
+    font-weight: 700;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #667eea;
+    margin: 15px auto 0;
+}
+
+/* Project Cards */
+.project-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    border: none;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Navigation */
+.navbar {
+	font-family: 'Raleway';
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nav .nav-link {
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #667eea !important;
 }
