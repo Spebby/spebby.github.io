@@ -24,7 +24,7 @@
 		},
 		{
 			"title": "Sistor Fixor",
-			"description": "A prototype for a Digital Logic Sim puzzle game. Developed in 2 days. The focus of the game is more on problem solving than real-world accuracy.",
+			"description": "A prototype for a Digital Logic Sim puzzle game. Developed in 2 days, the focus of the game is more on problem solving than real-world accuracy. Still, it is accurate for all the simplistic operations present.",
 			"image": "cards/Fixor.png",
 			"tags": ["Unity", "2025"],
 			"link": "https://spebby.net/SistorFixor/",
@@ -62,7 +62,7 @@
 		},
 		{
 			"title": "Back to the Frog",
-			"description": "Final project for an introductory game desgin & programming class & UCSC, made part-time in 3 weeks. This was my first foray into the Godot engine after a nearly 2 year long break from working on game programming. I wrote the entire games codebase, and did most of the level design, though that was not my main focus.",
+			"description": "Final project for an introductory game desgin & programming class & UCSC, made part-time in 3 weeks. This was my first foray into the Godot engine after a nearly 2 year long break from working on game programming. I wrote the entire codebase.",
 			"image": "cards/Frog.png",
 			"tags": [ "Godot", "C#", "2024" ],
 			"source": "https://github.com/Spebby/80K-Finale"
@@ -85,10 +85,10 @@
 		},
 		{
 			"title": "Tower of Towers",
-			"description": "A charming 16-bit platformer, and winnter of 'Best Technical Quality' in André Young's 'Game Jaaj 5'. Development was ~2 weeks for the initial release. I worked on level design and implementation of side content like collectables and niche hazards. For the Newgrounds release, I handled Newgrounds integration, localisation and overhauled several levels.",
+			"description": "A charming 16-bit platformer, and winnter of 'Best Technical Quality' in André Young's 'Game Jaaj 5'. Development was ~2 weeks for the initial release. I worked on level design, core features, Newgrounds integration and localisation.",
 			"image": "cards/TowerOfTowers.png",
 			"tags": ["Unity", "2021"],
-			"credit": "https://x.com/FlodotelitoKifo",
+			"credit": "https://www.linkedin.com/in/nolan-max-ross/",
 			"link": "https://www.newgrounds.com/portal/view/794975"
 		},
 		{
