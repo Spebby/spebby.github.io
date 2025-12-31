@@ -1,0 +1,79 @@
+{
+    "projects": [
+		{
+			"title": "Gamba Gun",
+			"description": "An ongoing action roguelike game project, developed by 'Nolamo Softworks'. My contributions focus on refactoring the project and managing development of supporting gameplay systems, specifically the GPU-based splats, enemy AI and localisation systems.",
+			"image": "/assets/cards/Gamba.png",
+			"tags": ["Unity", "WIP"],
+			"credit": "https://x.com/FlodotelitoKifo",
+			"link": "https://store.steampowered.com/app/3497930/Gamba_Gun/"
+		},
+		{
+			"title": "California V2",
+			"description": "A vastly overhauled update for the 2019 'California' map for Unturned. The project had 6 years of development time with 5-6 active developers at any given time from many countries. This update featured a vastly overhauled and expanded map, gameplay loop and greatly increased visual fidelity.",
+			"image": "/assets/cards/C2.png",
+			"tags": ["Unturned", "WIP"],
+			"link":  "https://steamcommunity.com/games/304930/announcements/detail/507347176534312602"
+		},
+		{
+			"title": "Wang Slime",
+			"description": "A slime mold simulation combined with wang tiles. Slime agents navigate a simple procedurally generated map which can be updated at runtime. This is possible as the simulation is entirely ran on the GPU.",
+			"video": "https://www.youtube.com/watch?v=br3pCslvHnw",
+			"tags": ["Unity", "Graphics", "2025"],
+			"source": "https://github.com/Spebby/Wang-Slime"
+		},
+		{
+			"title": "Sistor Fixor",
+			"description": "A prototype for a Digital Logic Sim puzzle game. Developed in 2 days, the focus of the game is more on problem solving than real-world accuracy. Still, it is accurate for all the simplistic operations present.",
+			"image": "/assets/cards/Fixor.png",
+			"tags": ["Unity", "2025"],
+			"link": "https://spebby.net/SistorFixor/",
+			"source": "https://github.com/Spebby/SistorFixor/"
+		},
+    	{
+			"title": "Spebby's Chess Engine",
+			"description": "A basic Chess Engine & AI programmed in C++ using Dear ImGui as a graphical front-end. The engine makes use of bitboards and negamax for its inbuilt AI, and can play to depth 5 in near realtime.",
+			"image": "/assets/cards/Chess.png",
+			"tags": [ "C++", "AI", "2024" ],
+			"source": "https://github.com/Spebby/CMPM123-Chess/"
+		},
+		{
+			"title": "Booliards",
+			"description": "A fast-paced retro-styled arcadey billiards action game with classic charm. I worked on game design, wave design, achievements, Newgrounds integration and backend architecture.",
+			"image": "/assets/cards/Booliards.png",
+			"tags": ["Unity", "2023"],
+			"credit": "https://www.linkedin.com/in/nolan-max-ross/",
+			"link": "https://www.newgrounds.com/portal/view/879200"
+		},
+		{
+			"title": "Egg Rush",
+			"description": "A cracking beat-em-up staring a rotten egg, created as a submission for the Newgrounds July Jam 2021. Developed in 3 days! I worked on core gameplay systems, upgrades and enemy behaviour.",
+			"image": "/assets/cards/EggRush.png",
+			"tags": ["Unity", "2021"],
+			"credit": "https://x.com/FlodotelitoKifo",
+			"link": "https://www.newgrounds.com/portal/view/807164"
+		},
+		{
+			"title": "Tower of Towers",
+			"description": "A charming 16-bit platformer, and winter of 'Best Technical Quality' in André Young's 'Game Jaaj 5'. Development was ~2 weeks for the initial release. I worked on level design, core features, Newgrounds integration and localisation.",
+			"image": "/assets/cards/TowerOfTowers.png",
+			"tags": ["Unity", "2021"],
+			"credit": "https://www.linkedin.com/in/nolan-max-ross/",
+			"link": "https://www.newgrounds.com/portal/view/794975"
+		},
+		{
+			"title": "Easter Island",
+			"description": "In development for a little under a year, Easter Island is an officially endorsed 'curated' modding project for the hit indie game Unturned. It was featured in-game in February 2020, and remains permently accessible (though no longer preinstaled). Work on this project was primarily level-design, game balancing, project & team management and 3D art based.",
+			"image": "/assets/cards/EasterIsland.png",
+			"tags": ["Unturned", "2020"],
+			"link": "https://steamcommunity.com/games/304930/announcements/detail/1702860089589301134"
+		},
+		{
+			"title": "Freighter",
+			"description": "Second place winner of the community-hosted '2019 June MapJam'. Development was 2 weeks, and was the first major project I worked on that released.",
+			"image": "/assets/cards/Freighter.jpg",
+			"tags": ["Unturned", "2019"],
+			"link": "https://steamcommunity.com/sharedfiles/filedetails/?id=1765946790"
+		}
+    ]
+}

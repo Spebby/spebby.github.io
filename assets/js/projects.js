@@ -1,11 +1,11 @@
 // Function to load and display projects from JSON file
-const path = '../data/projects.json';
 async function loadProjects() {
-    const container = document.getElementById('projects-container');
+	const container = document.getElementById('projects-container');
+	const jsonPath = container.dataset.json;
     
     try {
         // Fetch the projects from the JSON file
-        const response = await fetch(path);
+        const response = await fetch(jsonPath);
         
         if (!response.ok) {
             throw new Error('Failed to load projects');
@@ -79,7 +79,7 @@ async function loadProjects() {
         container.innerHTML = `
             <div class="col-12">
                 <div class="alert alert-danger" role="alert">
-                    Failed to load projects @ '${path}'
+                    Failed to load projects @ '${jsonPath}'
                 </div>
             </div>
         `;
