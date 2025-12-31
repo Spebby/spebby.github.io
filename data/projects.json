@@ -1,0 +1,123 @@
+{
+    "projects": [
+		{
+			"title": "Gamba Gun",
+			"description": "A currently unreleased action roguelike game developed by 'Nolamo Softworks'. As of writting, my role has largely been in refactoring & development of supporting gameplay systems.",
+			"image": "cards/Gamba.png",
+			"tags": ["Unity", "2026", "WIP"],
+			"credit": "https://x.com/FlodotelitoKifo",
+			"link": "https://store.steampowered.com/app/3497930/Gamba_Gun/"
+		},
+		{
+			"title": "California V2",
+			"description": "A vastly overhauled update for the 2019 'California' map for Unturned. The project had 6 years of development time with 5-6 active developers at any given time from many countries. This update featured a vastly overhauled and expanded map, gameplay loop and greatly increased visual fidelity.",
+			"image": "cards/C2.png",
+			"tags": ["Unturned", "2026"],
+			"link":  "https://steamcommunity.com/games/304930/announcements/detail/507347176534312602"
+		},
+		{
+			"title": "Wang Slime",
+			"description": "A slime mold simulation combined with wang tiles. Slime agents navigate a simple procedurally generated map which can be updated at runtime. This is possible as the simulation is entirely ran on the GPU.",
+			"video": "https://www.youtube.com/watch?v=br3pCslvHnw",
+			"tags": ["Unity", "Compute Shaders", "2025"],
+			"source": "https://github.com/Spebby/Wang-Slime"
+		},
+		{
+			"title": "Sistor Fixor",
+			"description": "A prototype for a Digital Logic Sim puzzle game. Developed in 2 days. The focus of the game is more on problem solving than real-world accuracy.",
+			"image": "cards/Fixor.png",
+			"tags": ["Unity", "2025"],
+			"link": "https://spebby.net/SistorFixor/",
+			"source": "https://github.com/Spebby/SistorFixor/"
+		},
+		{
+			"title": "Rio de Janeiro Remastered",
+			"description": "Remake of the 2019 curated map, with greatly improved gameplay and visuals. My work was largely focused on optimisation, and assisting with direction, playtesting and ideation.",
+			"image": "cards/Rio2.png",
+			"tags": ["Unturned", "2025"],
+			"link": "https://store.steampowered.com/news/app/304930/view/615409552076048049"
+		},
+        {
+            "title": "StrongBadZone",
+            "description": "A recreation of StrongBadZone from Homestar Runner, Strong Bad Email #94. This was programmed in TypeScript using the Phaser 3 framework, and was my final project for CMPM 120 @ UCSC, Winter '25. The majority of art assets are 3D wireframe models.",
+            "image": "cards/SBZ.png",
+            "tags": ["Phaser", "2025"],
+            "link": "https://spebby.net/StrongBadZone/",
+			"source": "https://github.com/Spebby/StrongBadZone"
+        },
+        {
+            "title": "Fly-By",
+            "description": "A midterm project for CMPM 120 & UCSC, Winter '25. Fly-By is an Endless Runner where you pilot a paper airplane, weaving through an ever increasing volley of obstacles. This game used a custom physics routine modeled after Minecraft's Elytra physics.",
+            "image": "cards/Flyby.png",
+            "tags": ["Phaser", "2025"],
+            "link": "https://spebby.net/Fly-By/",
+			"source": "https://github.com/Spebby/Fly-By"
+        },
+		{
+			"title": "Spebby's Chess Engine",
+			"description": "A basic Chess Engine & AI programmed in C++ using Dear ImGui as a graphical front-end. The engine makes use of bitboards and negamax for its inbuilt AI, and can play to depth 5 in near realtime.",
+			"image": "cards/Chess.png",
+			"tags": [ "C++", "2024" ],
+			"source": "https://github.com/Spebby/CMPM123-Chess/"
+		},
+		{
+			"title": "Back to the Frog",
+			"description": "Final project for an introductory game desgin & programming class & UCSC, made part-time in 3 weeks. This was my first foray into the Godot engine after a nearly 2 year long break from working on game programming. I wrote the entire games codebase, and did most of the level design, though that was not my main focus.",
+			"image": "cards/Frog.png",
+			"tags": [ "Godot", "C#", "2024" ],
+			"source": "https://github.com/Spebby/80K-Finale"
+		},
+		{
+			"title": "Booliards",
+			"description": "A fast-paced retro-styled arcadey billiards action game with classic charm. I worked on game design, wave design, achievements, Newgrounds integration and backend architecture.",
+			"image": "cards/Booliards.png",
+			"tags": ["Unity", "2023"],
+			"credit": "https://www.linkedin.com/in/nolan-max-ross/",
+			"link": "https://www.newgrounds.com/portal/view/879200"
+		},
+		{
+			"title": "Egg Rush",
+			"description": "A cracking beat-em-up staring a rotten egg, created as a submission for the Newgrounds July Jam 2021. Developed in 3 days! I worked on core gameplay systems, upgrades and enemy behaviour.",
+			"image": "cards/EggRush.png",
+			"tags": ["Unity", "2021"],
+			"credit": "https://x.com/FlodotelitoKifo",
+			"link": "https://www.newgrounds.com/portal/view/807164"
+		},
+		{
+			"title": "Tower of Towers",
+			"description": "A charming 16-bit platformer, and winnter of 'Best Technical Quality' in André Young's 'Game Jaaj 5'. Development was ~2 weeks for the initial release. I worked on level design and implementation of side content like collectables and niche hazards. For the Newgrounds release, I handled Newgrounds integration, localisation and overhauled several levels.",
+			"image": "cards/TowerOfTowers.png",
+			"tags": ["Unity", "2021"],
+			"credit": "https://x.com/FlodotelitoKifo",
+			"link": "https://www.newgrounds.com/portal/view/794975"
+		},
+		{
+			"title": "Easter Island",
+			"description": "In development for a little under a year, Easter Island is an officially endorsed 'curated' modding project for the hit indie game Unturned. It was featured in-game in Feburary 2020, and remains permently accessible (though no longer preinstaled). Work on this project was primairly level-design, game balancing, project & team management and 3D art based.",
+			"image": "cards/EasterIsland.png",
+			"tags": ["Unturned", "2020"],
+			"link": "https://steamcommunity.com/games/304930/announcements/detail/1702860089589301134"
+		},
+		{
+			"title": "Rio de Janeiro",
+			"description": "The original 2019 release of the curated unturned map. I assisted with development and became more involved towards the end of development, helping to push the map, which had been in development for years, across the finish line. Post-release I helped to support it with bug fixes, community support and optimisations.",
+			"image": "cards/Rio1.png",
+			"tags": ["Unturned", "2019"],
+			"link": "https://store.steampowered.com/news/app/304930/view/2909844527767404562"
+		},
+		{
+			"title": "Christmas In July",
+			"description": "A christmas-themed entry to the community-hosted '2019 Summer MapJam'. Development was just under a month and intended to be played as a deathmatch map.",
+			"image": "cards/CIJ.jpg",
+			"tags": ["Unturned", "2019"],
+			"link": "https://steamcommunity.com/sharedfiles/filedetails/?id=1945083886"
+		},
+		{
+			"title": "Freighter",
+			"description": "Second place winner of the community-hosted 'MapJam June 2019'. Development was 2 weeks, and was the first major project I worked on that released.",
+			"image": "cards/Freighter.jpg",
+			"tags": ["Unturned", "2019"],
+			"link": "https://steamcommunity.com/sharedfiles/filedetails/?id=1765946790"
+		}
+    ]
+}

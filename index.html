@@ -1,33 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <!-- Basic Page Needs
-    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <meta charset="utf-8">
+	<!-- Basic Page Needs -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thom's Website</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <!-- Mobile Specific Metas
-    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- FONT
-    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- FONT -->
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 
-    <!-- CSS
-    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/skeleton.css">
+    <!-- CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/tabs.css">
-
-
-    <!-- Favicon
-    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
 
     <!-- P5JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
@@ -36,21 +20,19 @@
     <meta name="darkreader-lock">
 </head>
 <body>
-
-<!-- TODO: replace this stuff w/ my own flexbox stuff. This is fine as a placeholder but MAKE SURE you replace. -->
-<header class="banner header">
-    <div class="title-logo">
-        <div>
-            <a href="/" class="title"><h1 style="margin:0; padding:0;">Thom Mott</h1></a>
-            <div class="socials">
-                <a href="https://github.com/spebby"><img class="icon" src="./icons/github.svg" alt="Github icon"></a>
-                <a href="https://bsky.app/profile/spebby.bsky.social"><img class="icon" src="./icons/bluesky.svg" alt="bluesky"></a>
-                <a href="https://www.instagram.com/spebby_/"><img class="icon" src="./icons/instagram.svg" alt="Instagram Icon"></a>
-                <a href="https://spebby.newgrounds.com/"><img class="icon newgrounds" src="./icons/newgrounds.png" alt="newgrounds"></a>
-                <a href="https://www.linkedin.com/in/thom-mott-73b23b221/"><img class="icon" src="./icons/linkedin.svg" alt="LinkedIn icon"></a>
-            </div>
+	<nav class="navbar navbar-light navbar-expand-lg bg-light">
+	<header class="w-100 text-center">
+		<h1 class="display-4 fw-normal">Thom Mott</h1>
+        <div class="socials d-flex justify-content-center gap-2">
+            <a href="https://github.com/spebby"><img class="icon" src="./icons/github.svg" alt="Github icon"></a>
+            <a href="https://www.linkedin.com/in/thom-mott-73b23b221/"><img class="icon" src="./icons/linkedin.svg" alt="LinkedIn icon"></a>
+            <a href="https://orcid.org/my-orcid?orcid=0009-0004-2834-788X"><img class="icon" src="./icons/orcid.svg" alt="ORCiD icon"></a>
+            <a href="https://bsky.app/profile/spebby.bsky.social"><img class="icon" src="./icons/bluesky.svg" alt="bluesky"></a>
+            <a href="https://www.instagram.com/spebby_/"><img class="icon" src="./icons/instagram.svg" alt="Instagram Icon"></a>
+            <a href="https://spebby.newgrounds.com/"><img class="icon newgrounds" src="./icons/newgrounds.png" alt="newgrounds"></a>
         </div>
-    </div>
+	</header>
+			<!--
     <div class="links">
         <a class="subpage" href="/bio">
             <h3 style="margin:0;">
@@ -63,283 +45,20 @@
             </h3>
         </a>
     </div>
-</header>
+			--->
+    </nav>
 
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
-<div class="container" style="padding-bottom: 2.5%;">
-	<div class="row" style="padding-top:2.5%;">
-        <div class="one-half column tab tab--visible">
-            <div class="tab--header">
-                <a class="ref-link" href="https://spebby.net/StrongBadZone/">
-                <img src="cards/SBZ.png" class="tab-thumb">
-                <h3 class="tab-title"> STRONGBADZONE </h3></a><a href="https://spebby.net/StrongBadZone/">
-                </a>
-            </div>
-            <div style="display : flex;">
-                <blockquote class="tab-blurb">
-					A recreation of StrongBadZone from Homestar Runner, Strong Bad Email #94, "Video Games". This was programmed in TypeScript using the Phaser 3 framework, and was the final project for CMPM 120 @ UCSC, Winter '25. The majority of art assets are 3D wireframe models and had custom hit detection code.
-                </blockquote> 
-            </div>
-    
-            <div class="tab-taglist">
-                <button class="tag" value=" Phaser">Phaser</button>
-                <button class="tag" value=" 2025">2025</button>
-            </div>
-        </div>
-
-        <div class="one-half column tab tab--visible">
-            <div class="tab--header">
-                <a class="ref-link" href="https://spebby.net/Endless-Runner/">
-                <img src="cards/Flyby.png" class="tab-thumb">
-                <h3 class="tab-title"> Fly-By </h3></a><a href="https://spebby.net/Endless-Runner/">
-                </a>
-            </div>
-            <div>
-                <blockquote class="tab-blurb">
-					The midterm project for CMPM 121 @ UCSC, Winter '25. Fly-By is an Endless Runner where you pilot a paper airplane, weaving through an ever increasing volley of obstacles. This game used a custom physics routine modeled after Minecraft's Elytra physics.
-                </blockquote>
-            </div>
-    
-            <div class="tab-taglist">
-                <button class="tag" value=" Phaser">Phaser</button>
-                <button class="tag" value=" 2025">2025</button>
-            </div>
+    <div class="container my-5">
+        <h2 class="text-center mb-4 fw-normal">Selected Works</h2>
+        <div id="projects-container" class="row g-4 justify-content-center">
+            <!-- Project cards will be inserted here -->
         </div>
     </div>
 
-    <div class="row" style="padding-top:2.5%;">
-        <div class="one-half column tab tab--visible">
-            <div class="tab--header">
-                <a class="ref-link" href="https://github.com/Spebby/CMPM123-Chess/">
-                <img src="cards/Chess.png" class="tab-thumb">
-                <h3 class="tab-title"> Spebby's Chess Engine </h3></a><a href="https://github.com/Spebby/CMPM123-Chess/">
-                </a>
-            </div>
-            <div style="display : flex;">
-                <blockquote class="tab-blurb">
-                    A basic Chess Engine programmed entierly in C++ and using <a href="https://github.com/ocornut/imgui/tree/docking">Dear ImGui</a> for its graphical front-end. The engine makes use of bitboards and negamax for its inbuilt AI, and can play to depth 5 in near realtime. Created for CMPM 123 at UCSC during Fall 2024.
-                </blockquote> 
-            </div>
-    
-            <div class="tab-taglist">
-                <button class="tag" value=" DearImGui">Dear ImGui</button>
-                <button class="tag" value=" 2024">2024</button>
-            </div>
-        </div>
 
-        <div class="one-half column tab tab--visible">
-            <div class="tab--header">
-                <a class="ref-link" href="https://github.com/Spebby/80K-Finale">
-                <img src="cards/Frog.png" class="tab-thumb">
-                <h3 class="tab-title"> Back to the Frog </h3></a><a href="https://github.com/Spebby/80K-Finale">
-                </a>
-            </div>
-            <div>
-                <blockquote class="tab-blurb">
-                    Final project for CMPM 80K at UCSC during Fall Quarter, made in 3 weeks. This was my first foray into Godot after a nearly 2 year break from working on games. I wrote the entire games codebase, and most of the level design, though that was not my main focus.
-                </blockquote>
-            </div>
-    
-            <div class="tab-taglist">
-                <button class="tag" value=" Godot">Godot</button>
-                <button class="tag" value=" 2024">2024</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="row" style="padding-top:2.5%;">
-        <!-- Booliards -->
-        <div class="one-third column tab tab--visible">
-            <div class="tab--header">
-                <a class="ref-link" href="https://www.newgrounds.com/portal/view/879200">
-                <img src="cards/Booliards.png" class="tab-thumb">
-                <h3 class="tab-title">Booliards</h3></a><a href="https://www.newgrounds.com/portal/view/879200">
-                </a>
-            </div>
-            <div>
-                <blockquote class="tab-blurb">
-                    A retro-styled, arcade-inspired billiards game with fast-paced action and classic charm. I worked on game design, Newgrounds integration and backend architecture.
-                </blockquote>
-            </div>
-
-            <div>
-                <blockquote class="tab-blurb">
-                    Cover Art: <a href="https://www.linkedin.com/in/nolan-max-ross/">Nolan Ross</a>
-                </blockquote>
-            </div>
-
-            <div class="tab-taglist">
-                <button class="tag" value=" Unity">Unity</button>
-                <button class="tag" value=" 2023">2021</button>
-            </div>
-        </div>
-
-        <!-- Egg Rush -->
-        <div class="one-third column tab tab--visible">
-            <div class="tab--header">
-                <a class="ref-link" href="https://www.newgrounds.com/portal/view/807164">
-                <img src="cards/EggRush.png" class="tab-thumb">
-                <h3 class="tab-title">Egg Rush</h3></a><a href="https://www.newgrounds.com/portal/view/807164">
-                </a>
-            </div>
-            <div>
-                <blockquote class="tab-blurb">
-                    A cracking arcadey beat-em-up staring a rotten egg, created as a submission for the <a href="https://www.newgrounds.com/collection/july-jam-2021">Newgrounds July Jam 2021</a>.
-                </blockquote>
-                <!--
-                <blockquote class="tab-blurb">
-                    I worked as a gameplay programmer and game designer. We had such a tight development window due to entering the jam late, by some miricle the game is pretty fun and decently polished—just don't go looking at the source code. 
-                </blockquote>
-                -->
-            </div>
-
-            <div>
-                <blockquote class="tab-blurb">
-                    Cover Art: <a href="https://x.com/FlodotelitoKifo">Flodotelito</a>
-                </blockquote>
-            </div>
-
-            <div class="tab-taglist">
-                <button class="tag" value=" Unity">Unity</button>
-                <button class="tag" value=" 2021">2021</button>
-            </div>
-        </div>
-
-        <!-- Tower of Towers -->
-        <div class="one-third column tab tab--visible">
-            <div class="tab--header">
-                <a class="ref-link" href="https://www.newgrounds.com/portal/view/794975">
-                <img src="cards/TowerOfTowers.png" class="tab-thumb">
-                <h3 class="tab-title">Tower of Towers</h3></a><a href="https://www.newgrounds.com/portal/view/794975">
-                    </a>
-            </div>
-            <div>
-                <blockquote class="tab-blurb">
-                    A charming 16-bit platformer, and winner of "Best Technical Quality" in <a href="https://www.youtube.com/watch?v=tLgoZtCuaJY">André Young's</a> game jam: "Game Jaaj 5".
-                </blockquote>
-                <!--
-                <blockquote class="tab-blurb">
-                    Development was around 2 weeks, and I learned to code during development, and acted as a secondary gameplay programmer. I primairly worked on level design for the initial release. For the Newground re-release, I worked on Newgrounds integration, localisation and overhauled several levels.
-                </blockquote>
-                -->
-            </div>
-
-            <div>
-                <blockquote class="tab-blurb">
-                    Cover Art: <a href="https://www.linkedin.com/in/nolan-max-ross/">Nolan Ross</a>
-                </blockquote>
-            </div>
-
-            <div class="tab-taglist">
-                <button class="tag" value=" Unity">Unity</button>
-                <button class="tag" value=" 2021">2021</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="row" style="padding-top:2.5%;">
-        <!-- Easter Island -->
-        <div class="one-third column tab tab--visible">
-            <div class="tab--header">
-                <a class="ref-link" href="https://steamcommunity.com/games/304930/announcements/detail/1702860089589301134">
-                <img src="cards/EasterIsland.png" class="tab-thumb">
-                <h3 class="tab-title">Easter Island</h3></a><a href="https://steamcommunity.com/games/304930/announcements/detail/1702860089589301134">
-                </a>
-            </div>
-            <div>
-                <blockquote class="tab-blurb">
-                    An officially endorsed modding project for the hit indie game Unturned. It was featured in-game in Feburary 2020.
-                </blockquote>
-                <!--
-                <blockquote class="tab-blurb">
-                    Easter Island was in development for a little under a year, and I gained a lot of expereince as a level designer and 3D artist. I got my first taste of a large scale team project, working with a small team of 4 across the US and Canada. 
-                </blockquote>
-                -->
-            </div>
-
-            <div class="tab-taglist">
-                <button class="tag" value=" Untunred">Unturned</button>
-                <button class="tag" value=" 2020">2020</button>
-            </div>
-        </div>
-
-        <!-- CIJ -->
-        <div class="one-third column tab tab--visible">
-            <div class="tab--header">
-                <a class="ref-link" href="https://steamcommunity.com/sharedfiles/filedetails/?id=1945083886">
-                <img src="cards/CIJ.jpg" class="tab-thumb">
-                <h3 class="tab-title">Christmas In July</h3></a><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1945083886">
-                </a>
-            </div>
-            <div>
-                <blockquote class="tab-blurb">
-                    A north-pole themed entry to the community-hosted <a href="https://unturned.wiki.gg/wiki/MapJam_Summer_2019">2019 Summer MapJam</a>. Development was just under a month.
-                </blockquote>
-                <!--
-                <blockquote class="tab-blurb">
-                    I got my groove for designing multiplayer enviornments in this one. The longer development time led to a highly polished final project, which still holds up well.
-                </blockquote>
-                -->
-            </div>
-
-            <div class="tab-taglist">
-                <button class="tag" value=" Unturned">Unturned</button>
-                <button class="tag" value=" 2019">2019</button>
-            </div>
-        </div>
-
-        <!-- Freighter -->
-        <div class="one-third column tab tab--visible">
-            <div class="tab--header ">
-                <a class="ref-link" href="https://steamcommunity.com/sharedfiles/filedetails/?id=1765946790">
-                <img src="cards/Freighter.jpg" class="tab-thumb">
-                <h3 class="tab-title">Freighter</h3></a><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1765946790">
-                </a>
-            </div>
-            <div>
-                <blockquote class="tab-blurb">
-                    Second place winner of the community-hosted <a href="https://unturned.wiki.gg/wiki/MapJam_June_2019">First MapJam</a>. Development was 2 weeks, and was the first major project I worked on that released.
-                </blockquote>
-            </div>
-
-            <div class="tab-taglist">
-                <button class="tag" value=" Unturned">Unturned</button>
-                <button class="tag" value=" 2019">2019</button>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<!-- Example card
-<div class="one-third column tab tab--visible">
-    <div class="tab--header">
-        <a class="ref-link" href="">
-        <img src="" class="tab-thumb">
-        <h3 class="tab-title">  </h3></a><a href="">
-        </a>
-    </div>
-    <div>
-        <blockquote class="tab-blurb">
-            
-        </blockquote>
-        <blockquote class="tab-blurb">
-
-        </blockquote>
-    </div>
-
-    <div>
-        <button class="tag" value=" 2024">2024</button>
-    </div>
-</div>
--->
-
-
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
+  <!--Bootstraping-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/projects.js"></script>
   <script src="js/sketch.js"></script>
 </body>
 </html>
