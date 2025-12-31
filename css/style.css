@@ -6,9 +6,16 @@ canvas {
     pointer-events: none;
 }
 
+html, body {
+    overflow-x: hidden;
+    overscroll-behavior: none; /* Prevents bounce/overscroll */
+    position: relative;
+    min-height: 100vh;
+	scroll-behavior: smooth;
+}
+
 body {
     background-color: #f8f9fa;
-    scroll-behavior: smooth;
 }
 
 footer {
