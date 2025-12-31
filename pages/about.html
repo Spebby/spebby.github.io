@@ -1,11 +1,12 @@
 ---
-title: Thom's Website
+title: About
+permalink: /About/
 custom_links:
-  - label: About
-    url: /About/
+  - label: Home
+    url: /
   - label: CV
     url: /downloads/CV_Thom_Mott.pdf
-    blank: true
+    blank: trug
   - label: Contact
     url: /Contact/
   - label: Projects
@@ -25,7 +26,7 @@ custom_links:
 
     <!-- CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css?v=2">
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css?v=2">
 
     <!-- P5JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
@@ -36,17 +37,16 @@ custom_links:
 <body>
 	{% include header.html %}
 	
-    <div class="container my-5">
-			<!---<h2 class="text-center mb-4 fw-normal">Selected Works</h2>-->
-        <div id="projects-container" data-json="{{ site.baseurl }}/assets/data/projectsFeatured.json" class="row g-4 justify-content-center">
-            <!-- Project cards will be inserted here -->
-        </div>
-    </div>
+    <div class="glass-box text-center top-5 my-auto mx-auto" style="max-width: 800px">
+		  <h2 class="fw-light">About</h2>
+  <p class="mb-0">
+    Thom Mott is a California based university student and part-time developer 
+  </p>
+	</div>
 
 
   <!--Bootstrapping-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="{{ site.baseurl }}/assets/js/projects.js"></script>
   <script src="{{ site.baseurl }}/assets/js/sketch.js"></script>
 </body>
 </html>

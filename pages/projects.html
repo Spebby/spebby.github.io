@@ -1,6 +1,9 @@
 ---
-title: Thom's Website
+title: Projects
+permalink: /Projects/
 custom_links:
+  - label: Home
+    url: /
   - label: About
     url: /About/
   - label: CV
@@ -8,8 +11,6 @@ custom_links:
     blank: true
   - label: Contact
     url: /Contact/
-  - label: Projects
-    url: /Projects/
 ---
 
 <!DOCTYPE html>
@@ -37,8 +38,8 @@ custom_links:
 	{% include header.html %}
 	
     <div class="container my-5">
-			<!---<h2 class="text-center mb-4 fw-normal">Selected Works</h2>-->
-        <div id="projects-container" data-json="{{ site.baseurl }}/assets/data/projectsFeatured.json" class="row g-4 justify-content-center">
+			<h2 class="text-center mb-4 fw-normal">Selected Works</h2>
+        <div id="projects-container" data-json="{{ site.baseurl }}/assets/data/projectsFull.json" class="row g-4 justify-content-center">
             <!-- Project cards will be inserted here -->
         </div>
     </div>

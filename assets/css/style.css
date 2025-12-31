@@ -106,6 +106,14 @@ footer {
     transition: transform 0.3s, box-shadow 0.3s;
     height: 100%;
     border: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card:hover {
@@ -114,7 +122,7 @@ footer {
 }
 
 .card-img-top {
-    height: 200px;
+	height: 234px;
     object-fit: cover;
 }
 
@@ -131,4 +139,19 @@ footer {
 
 .navbar-nav .nav-link:hover {
     color: #667eea !important;
+}
+
+.glass-box {
+	background: rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px); /* Safari */
+	border-radius: 16px;
+	padding: 1.25rem 1.5rem;
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.glass-box.dark {
+	background: rgba(0, 0, 0, 0.25);
+	color: #fff;
 }
