@@ -1,1 +1,3 @@
 _site/
+.pre-commit-config.yaml
+.nix-profile/
