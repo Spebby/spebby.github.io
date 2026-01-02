@@ -11,6 +11,8 @@ custom_links:
     blank: true
   - label: Projects
     url: /Projects/
+redirect_from:
+  - /contact/
 ---
 
 <!DOCTYPE html>
@@ -26,17 +28,26 @@ custom_links:
 <body>
 	{% include header.html %}
 	
-	<div class="container my-5">
-		<!---<h2 class="text-center mb-4 fw-normal">Selected Works</h2>-->
-		<div id="projects-container" class="row g-4 justify-content-center">
-			<!-- Project cards will be inserted here -->
+	<div class="glass-box container my-5" style="max-width: 900px;">
+		<div class="text-center mb-2 fw-normal" style="font-family: 'Raleway';">
+			<h2>Contact & Media</h2>
+			<span class="fs-5 text">
+				<p>Need to reach me? You can contact me directly via email. You can reach me either through my personal, or university contact. Emails to my university address that are not research related will be ignored.</p>
+				<p>Less reliably, you can find me on most social media via my handle, 'spebby' or 'spebby_'. If I do not list it on this site, it's probably one of my doppelgängers! Don't bother them!
+				</p>
+			</span>
+			<span class="links d-flex justify-content-center gap-2 fs-6">
+				<a href="mailto:thommott@proton.me">Personal</a>
+				<a href="mailto:tomott@ucsc.edu">University</a>
+				<p>Discord: @sqebby</p>
+				<a href="https://steamcommunity.com/profiles/76561198136390646">Steam</a>
+			</span>
 		</div>
 	</div>
 
 
 	<!--Bootstrapping-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="{{ site.baseurl }}/assets/js/projects.js"></script>
 	<script src="{{ site.baseurl }}/assets/js/sketch.js"></script>
 </body>
 </html>

@@ -4,4 +4,7 @@ description:
   "The portfolio website of Thom 'Spebby' Mott. You can view my projects, and
   learn a bit about me here :)"
 default_image: "./favicon.ico"
-
+whitelist:
+  - jekyll-redirect-from
+plugins:
+  - jekyll-redirect-from

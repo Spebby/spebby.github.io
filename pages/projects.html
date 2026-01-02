@@ -11,6 +11,8 @@ custom_links:
     blank: true
   - label: Contact
     url: /Contact/
+redirect_from:
+  - /projects/
 ---
 
 <!DOCTYPE html>
@@ -27,11 +29,14 @@ custom_links:
 	{% include header.html %}
 	
 	<div class="container my-5">
-					<h2 class="text-center mb-4 fw-normal" style="font-family: 'Raleway';">
-				<p class="glass-box" style="margin:0;">All Projects</p>
-			</h2>
-		<div id="projects-container" data-json="{{ site.baseurl }}/assets/data/projectsFull.json" class="row g-4 justify-content-center">
-			<!-- Project cards will be inserted here -->
+		<div class="glass-box text-center mb-4 fw-normal" style="font-family: 'Raleway';">
+			<p class="fs-5 text my-auto">Here are all the projects I've released that I deam showcasable, that I have some non-trivial tie to!</p>
+		</div>
+		<div class="glass-box">
+			<h2 class="text-center mb-4 fw-normal" style="font-family: 'Raleway';">All Projects</h2>
+			<div id="projects-container" data-json="{{ site.baseurl }}/assets/data/projectsFull.json" class="row g-4 justify-content-center">
+				<!-- Project cards will be inserted here -->
+			</div>
 		</div>
 	</div>
 

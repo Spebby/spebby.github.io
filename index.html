@@ -10,6 +10,11 @@ custom_links:
     url: /Contact/
   - label: Projects
     url: /Projects/
+redirect_from:
+  - /Home/
+  - /home/
+  - /Landing/
+  - /landing/
 ---
 
 <!DOCTYPE html>
@@ -26,11 +31,22 @@ custom_links:
 	{% include header.html %}
 	
 	<div class="container my-5">
+		<div class="glass-box text-center mb-4 fw-normal" style="font-family: 'Raleway';">
+			<h2>Welcome to my Portfolio!</h2>
+			<span class="fs-5 text">
+				<p>I am Thom Mott, a hopeful masters student for the Computational Media M.S. @ UCSC, and a current undergraduate in Computer Science: Game Design B.S. @ UCSC. My focus is on game development, computer graphics and game AI, often mixing these focuses for any given project. I have experience as a researcher in HCI from my time in undergrad.</p>
+				<p>Prior—and during—my time at university, I was an active modder for the video game <a href="https://store.steampowered.com/app/304930/Unturned/">Unturned</a>, where I got acquainted with level design and developed my game designer abilities.</p>
+				<p>You can read more about me on my <a href="/About/">about</a> page!</p>
+			</span>
+		</div>
+
+		<div class="glass-box">
 			<h2 class="text-center mb-4 fw-normal" style="font-family: 'Raleway';">
-				<p class="glass-box" style="margin:0;">Featured Projects</p>
+				<p style="margin:0;">Featured Projects</p>
 			</h2>
-		<div id="projects-container" data-json="{{ site.baseurl }}/assets/data/projectsFeatured.json" class="row g-4 justify-content-center">
-			<!-- Project cards will be inserted here -->
+			<div id="projects-container" data-json="{{ site.baseurl }}/assets/data/projectsFeatured.json" class="row g-4 justify-content-center">
+				<!-- Project cards will be inserted here -->
+			</div>
 		</div>
 	</div>
 
