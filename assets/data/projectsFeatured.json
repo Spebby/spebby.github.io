@@ -30,6 +30,13 @@
 			"link": "https://spebby.net/SistorFixor/",
 			"source": "https://github.com/Spebby/SistorFixor/"
 		},
+		{
+			"title": "Dungeon Generator",
+			"description": "A fast dungeon generator based on the backtracking and a weighted random selection, created as a final assignment for CMPM 146. Dungeon generation style was inspired by 'The Binding of Isaac'.",
+			"image": "/assets/cards/Dungeons.png",
+			"tags": ["Unity", "2025"],
+			"source": "https://github.com/Spebby/Dungeon-Generator"
+		},
     	{
 			"title": "Spebby's Chess Engine",
 			"description": "A basic Chess Engine & AI programmed in C++ using Dear ImGui as a graphical front-end. The engine makes use of bitboards and negamax for its inbuilt AI, and can play to depth 5 in near realtime.",

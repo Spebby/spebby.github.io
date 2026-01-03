@@ -37,6 +37,13 @@
 			"tags": ["Unturned", "2025"],
 			"link": "https://store.steampowered.com/news/app/304930/view/615409552076048049"
 		},
+		{
+			"title": "Dungeon Generator",
+			"description": "A fast dungeon generator based on the backtracking and a weighted random selection, created as a final assignment for CMPM 146. Dungeon generation style was inspired by 'The Binding of Isaac'.",
+			"image": "/assets/cards/Dungeons.png",
+			"tags": ["Unity", "2025"],
+			"source": "https://github.com/Spebby/Dungeon-Generator"
+		},
         {
             "title": "StrongBadZone",
             "description": "A recreation of StrongBadZone from Homestar Runner, Strong Bad Email #94. This was programmed in TypeScript using the Phaser 3 framework, and was my final project for CMPM 120 @ UCSC, Winter '25. The majority of art assets are 3D wireframe models.",

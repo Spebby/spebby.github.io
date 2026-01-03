@@ -142,7 +142,7 @@ footer {
 }
 
 .glass-box {
-	background: rgba(255, 255, 255, 0.2);
+	background: rgba(255, 255, 255, 0.3);
 	backdrop-filter: blur(8px);
 	-webkit-backdrop-filter: blur(8px); /* Safari */
 	border-radius: 16px;
@@ -152,6 +152,6 @@ footer {
 }
 
 .glass-box.dark {
-	background: rgba(0, 0, 0, 0.25);
+	background: rgba(0, 0, 0, 0.3);
 	color: #fff;
 }
