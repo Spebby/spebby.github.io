@@ -29,16 +29,24 @@ redirect_from:
 <body>
 	{% include header.html %}
 	
-	<div class="glass-box text-center top-5 my-auto mx-auto" style="max-width: 800px">
+	<div class="container glass-box my-5 mx-auto text-center" style="max-width: 900px; font-family: 'Raleway';">
 		<h2 class="fw-light">About</h2>
-		<p class="mb-0">
-		Thom Mott is a California based university student and part-time developer 
-		</p>
+		<span class="fs-5 mb-0">
+				<p>Thom "Spebby" Mott is a California based university student and part-time developer focused on interactive digital media specialising in Game AI and Computer Graphics. As an undergrad, Thom was affiliated with the <a href="https://setlab.soe.ucsc.edu/" style="font-style:italic;">SET lab</a> and <a href="https://slothlab.info/about/index.html" style="font-style:italic;">SLOTHLab</a>, where he contributed to the development of "Compassionate AR", and "Procedural Content Generation in Minecraft". This, and his personal work has lead him to draw on a breadth of creative influences, taking from both technical and human-centred approaches.</p>
+
+				<p>Outside of academics, Thom has been working on and around games for over a decade, getting started with video game modding in the 2010's, releasing multiple officially endorsed 'curated' maps for the game <a href="https://store.steampowered.com/app/304930/Unturned/" style="font-style:italic;">Unturned</a>, where he got his start in game and level design. At the same time, he has published several games in collaboration with fellow modders on <a href="https://spebby.newgrounds.com/" style="font-style:italic;">Newgrounds</a>, and is currently working on the upcoming action-roguelike <a href="https://store.steampowered.com/app/3497930/Gamba_Gun/">Gamba Gun</a>.</p>
+		</span>
 	</div>
 
 
 	<!--Bootstrapping-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="{{ site.baseurl }}/assets/js/sketch.js"></script>
+	<script src="{{ site.baseurl }}/assets/js/randomSketch.js"></script>
+	<script>
+		document.body.style.backgroundImage =`url('/assets/images/backgrounds/bird.jpg')`;
+		document.body.style.backgroundAttachment = 'fixed';
+		document.body.style.backgroundSize = 'cover';
+		document.body.style.backgroundPosition = 'left center';
+	</script>
 </body>
 </html>

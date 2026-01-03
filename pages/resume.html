@@ -28,31 +28,34 @@ redirect_from:
 <body>
 	{% include header.html %}
 	
-	<div class="container glass-box my-5 mx-auto" style="max-width: 900px">
-		<div class="text-center mb-2 fw-normal" style="font-family: 'Raleway';">
-		<h2 class="fw-light">Résumé</h2>
+	<div class="container glass-box my-5 mx-auto" style="max-width: 900px; font-family: 'Raleway';">
+		<div class="text-center mb-2 fw-heavy" style="color: #e2e2e2;">
+		<h2 class="fw-heavy">Résumé</h2>
+		<!--PDF Links-->
 		<span class="links d-flex justify-content-center gap-2">
 			<a href="{{ site.baseurl }}/downloads/CV_Thom_Mott.pdf" class="d-flex flex-column align-items-center text-decoration-none"><img class="icon mb-1" src="{{ site.baseurl }}/assets/icons/pdf-fill.svg" alt="CV.pdf" style="width: 60px; height: 60px; filter: invert(21%) sepia(96%) saturate(7500%) hue-rotate(355deg) brightness(95%) contrast(105%);">CV</a>
 			<a href="{{ site.baseurl }}/downloads/Writing_Sample_Thom_Mott.pdf" class="d-flex flex-column align-items-center text-decoration-none"><img class="icon mb-1" src="{{ site.baseurl }}/assets/icons/pdf-fill.svg" alt="Writing.pdf" style="width: 60px; height: 60px; filter: invert(21%) sepia(96%) saturate(7500%) hue-rotate(355deg) brightness(95%) contrast(105%);">Writing</a>
 		</span>
-		<span class="fs-5 text" style="font-family: 'Raleway';">
+
+		<!--Skills Brief-->
+		<span class="fs-5 text fw-heavy">
 			<div class="d-flex flex-row gap-5 justify-content-center">
 				<!--Languages-->
 				<div style="max-width: 250px;">
-					<h2 class="fw-heavy">Languages</h2>
+					<h2>Languages</h2>
 					<p style="font-style:italic;">Bash, C, C++, C#, Java, JavaScript/TypeScript, HLSL, Nix, Python, Zig</p>
 				</div>
 
 				<!--Engines/Frameworks-->
 				<div style="max-width: 250px;">
-					<h2 class="fw-heavy">Engines</h2>
+					<h2>Engines</h2>
 					<p style="font-style:italic;">Unity, Godot, Phaser, Dear ImGui</p>
 				</div>
 			</div>
 			<div class="d-flex flex-row gap-5 justify-content-center">
 				<!--Relevant Coursework-->
 				<div style="max-width: 550px;">
-					<h2 class="fw-heavy">Relevant Coursework</h2>
+					<h2>Relevant Coursework</h2>
 					<p style="font-style:italic;">POSIX pthreads, C++ Threading Library, Non-blocking algorithm design, Shader work, HTTP server + proxy in C</p>
 				</div>
 			</div>
@@ -63,6 +66,12 @@ redirect_from:
 
 	<!--Bootstrapping-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="{{ site.baseurl }}/assets/js/sketch.js"></script>
+	<script src="{{ site.baseurl }}/assets/js/snow.js"></script>
+	<script>
+        document.body.style.backgroundImage = `url('/assets/images/backgrounds/ferns.jpg')`;
+		document.body.style.backgroundAttachment = 'fixed';
+		document.body.style.backgroundSize = 'cover';
+		document.body.style.backgroundPosition = 'center';
+	</script>
 </body>
 </html>
