@@ -1,5 +1,5 @@
 ---
-title: Landing
+title: Thom Mott
 custom_links:
   - label: About
     url: /About/
@@ -24,6 +24,8 @@ redirect_from:
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{{ page.title }}</title>
 	{% include og-meta.html %}
+	<meta property="og:title" content="{{ page.title }}">
+	<meta property="twitter:title" content="{{ page.title }}">
 	{% include common-head.html %}
 </head>
 <body>
