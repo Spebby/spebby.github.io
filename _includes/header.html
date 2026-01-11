@@ -2,26 +2,26 @@
 	<header class="w-100 text-center">
 	  <h1 class="display-4 fw-light" id="navbar-title">Thom Mott</h1>
 	  <div class="socials d-flex justify-content-center gap-2" id="socials">
-		<a href="https://github.com/spebby"><img class="icon" src="{{ site.baseurl }}/assets/icons/github.svg" alt="Github icon"></a>
-		<a href="https://www.linkedin.com/in/thom-mott-73b23b221/"><img class="icon" src="{{ site.baseurl }}/assets/icons/linkedin.svg" alt="LinkedIn"></a>
-		<a href="https://orcid.org/0009-0004-2834-788X"><img class="icon" src="{{ site.baseurl }}/assets/icons/orcid.svg" alt="ORCiD"></a>
-		<a href="https://bsky.app/profile/spebby.bsky.social"><img class="icon" src="{{ site.baseurl }}/assets/icons/bluesky.svg" alt="bluesky"></a>
-		<a href="https://www.instagram.com/spebby_/"><img class="icon" src="{{ site.baseurl }}/assets/icons/instagram.svg" alt="instagram"></a>
-		<a href="https://spebby.newgrounds.com/"><img class="icon" style="border-radius: 0;" src="{{ site.baseurl }}/assets/icons/newgrounds.png" alt="newgrounds"></a>
+		<a href="https://github.com/spebby"><img class="icon" src="{{ site.url }}/assets/icons/github.svg" alt="Github icon"></a>
+		<a href="https://www.linkedin.com/in/thom-mott-73b23b221/"><img class="icon" src="{{ site.url }}/assets/icons/linkedin.svg" alt="LinkedIn"></a>
+		<a href="https://orcid.org/0009-0004-2834-788X"><img class="icon" src="{{ site.url }}/assets/icons/orcid.svg" alt="ORCiD"></a>
+		<a href="https://bsky.app/profile/spebby.bsky.social"><img class="icon" src="{{ site.url }}/assets/icons/bluesky.svg" alt="bluesky"></a>
+		<a href="https://www.instagram.com/spebby_/"><img class="icon" src="{{ site.url }}/assets/icons/instagram.svg" alt="instagram"></a>
+		<a href="https://spebby.newgrounds.com/"><img class="icon" style="border-radius: 0;" src="{{ site.url }}/assets/icons/newgrounds.png" alt="newgrounds"></a>
 	  </div>
 
 	  <div class="links d-flex justify-content-center gap-2 fs-5">
 		  {% if page.custom_links %}
 			{% for link in page.custom_links %}
-			  <a href="{{ site.baseurl }}{{ link.url }}"
+			  <a href="{{ site.url }}{{ link.url }}"
 				 {% if link.blank %}target="_blank"{% endif %}>
 				{{ link.label }}
 			  </a>
 			{% endfor %}
 		  {% else %}
-			<a href="{{ site.baseurl }}/About/">About</a>
-			<a href="{{ site.baseurl }}/downloads/CV_Thom_Mott.pdf" target="_blank">CV</a>
-			<a href="{{ site.baseurl }}/Contact/">Contact</a>
+			<a href="{{ site.url }}/About/">About</a>
+			<a href="{{ site.url }}/downloads/CV_Thom_Mott.pdf" target="_blank">CV</a>
+			<a href="{{ site.url }}/Contact/">Contact</a>
 		  {% endif %}
 	  </div>
 	</header>
