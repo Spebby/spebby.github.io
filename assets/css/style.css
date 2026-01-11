@@ -14,10 +14,6 @@ html, body {
 	scroll-behavior: smooth;
 }
 
-body {
-    background-color: #f8f9fa;
-}
-
 footer {
     margin-top: auto;
 }
@@ -154,4 +150,8 @@ footer {
 .glass-box.dark {
 	background: rgba(0, 0, 0, 0.3);
 	color: #fff;
+}
+
+.hidden {
+	display: none;
 }
