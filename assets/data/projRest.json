@@ -1,0 +1,48 @@
+{
+    "projects": [
+		{
+			"title": "Rio de Janeiro Remastered",
+			"description": "Remake of the 2019 curated map, with greatly improved gameplay and visuals. My work was largely focused on optimisation, and assisting with direction, playtesting and ideation.",
+			"image": "/assets/cards/Rio2.png",
+			"tags": ["Unturned", "2025"],
+			"link": "https://store.steampowered.com/news/app/304930/view/615409552076048049"
+		},
+        {
+            "title": "StrongBadZone",
+            "description": "A recreation of StrongBadZone from Homestar Runner, Strong Bad Email #94. This was programmed in TypeScript using the Phaser 3 framework, and was my final project for CMPM 120 @ UCSC, Winter '25. The majority of art assets are 3D wireframe models.",
+            "image": "/assets/cards/SBZ.png",
+            "tags": ["Phaser", "2025"],
+            "link": "https://spebby.net/StrongBadZone/",
+			"source": "https://github.com/Spebby/StrongBadZone"
+        },
+        {
+            "title": "Fly-By",
+            "description": "A midterm project for CMPM 120 & UCSC, Winter '25. Fly-By is an Endless Runner where you pilot a paper airplane, weaving through an ever increasing volley of obstacles. This game used a custom physics routine modeled after Minecraft's Elytra physics.",
+            "image": "/assets/cards/Flyby.png",
+            "tags": ["Phaser", "2025"],
+            "link": "https://spebby.net/Fly-By/",
+			"source": "https://github.com/Spebby/Fly-By"
+        },
+		{
+			"title": "Back to the Frog",
+			"description": "Final project for an introductory game design & programming class & UCSC, made part-time in 3 weeks. This was my first foray into the Godot engine after a nearly 2 year long break from working on game programming. I wrote the entire codebase.",
+			"image": "/assets/cards/Frog.png",
+			"tags": [ "Godot", "2024" ],
+			"source": "https://github.com/Spebby/80K-Finale"
+		},
+		{
+			"title": "Rio de Janeiro",
+			"description": "The original 2019 release of the curated unturned map. I assisted with development and became more involved towards the end of development, helping to push the map, which had been in development for years, across the finish line. Post-release I helped to support it with bug fixes, community support and optimisations.",
+			"image": "/assets/cards/Rio1.png",
+			"tags": ["Unturned", "2019"],
+			"link": "https://store.steampowered.com/news/app/304930/view/2909844527767404562"
+		},
+		{
+			"title": "Christmas In July",
+			"description": "A christmas-themed entry to the community-hosted '2019 Summer MapJam'. Development was just under a month and intended to be played as a deathmatch map.",
+			"image": "/assets/cards/CIJ.jpg",
+			"tags": ["Unturned", "2019"],
+			"link": "https://steamcommunity.com/sharedfiles/filedetails/?id=1945083886"
+		}
+    ]
+}

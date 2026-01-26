@@ -23,7 +23,7 @@
 			"source": "https://github.com/Spebby/Wang-Slime"
 		},
 		{
-			"title": "Sistor Fixor",
+			"title": "Sistor Fixor - Prototype",
 			"description": "A prototype for a Digital Logic Sim puzzle game. Developed in 2 days, the focus of the game is more on problem solving than real-world accuracy. Still, it is accurate for all the simplistic operations present.",
 			"image": "/assets/cards/Fixor.png",
 			"tags": ["Unity", "2025"],
