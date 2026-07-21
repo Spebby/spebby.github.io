@@ -8,10 +8,13 @@ canvas {
 
 html, body {
     overflow-x: hidden;
-    overscroll-behavior: none; /* Prevents bounce/overscroll */
     position: relative;
     min-height: 100vh;
 	scroll-behavior: smooth;
+}
+
+body {
+	overscroll-behaviour-y: none;
 }
 
 footer {
