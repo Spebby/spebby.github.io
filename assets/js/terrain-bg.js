@@ -2,39 +2,76 @@
 (function () {
   "use strict";
 
-  const canvas = document.createElement("canvas");
-  canvas.id = "terrain-bg";
-  // The site's global CSS makes every <canvas> position:fixed and
-  // pointer-events:none; that only sets position, not display size, so
-  // it's set explicitly here to fill the viewport regardless of the
-  // downscaled (QUALITY < 1) render-buffer resolution below.
-  canvas.style.width = "100vw";
-  canvas.style.height = "100vh";
-  canvas.style.display = "block";
-  document.body.prepend(canvas);
-
-  const gl = canvas.getContext("webgl", {
-    alpha: false,
-    antialias: false,
-    depth: true,
-    powerPreference: "high-performance",
-  });
-
-  if (!gl) {
-    console.error("WebGL not supported; terrain background disabled.");
-    canvas.remove();
-    return;
-  }
-
   /*
-   * ============================================================
-   * PERFORMANCE
-   * ============================================================
+   * =====================================
+   * CONFIG
+   * =====================================
    */
 
   const GRID = 96;
   const QUALITY = 0.85;
   const MAX_DPR = 1.5;
+
+  /*
+   * ============================================================
+   * FALLBACK / CANVAS
+   * ============================================================
+   */
+
+  const body = document.body;
+
+  // The CSS fallback should be enabled by default:
+  // <body class="shader-fallback">
+  // If the terrain initializes successfully, we remove it below.
+  const canvas = document.createElement("canvas");
+  canvas.id = "terrain-bg";
+
+  Object.assign(canvas.style, {
+    position: "fixed",
+    inset: "0",
+    width: "100vw",
+    height: "100vh",
+    display: "block",
+    pointerEvents: "none",
+    zIndex: "0",
+  });
+
+  /*
+   * Put the terrain behind the site's content.
+   * Explicitly establish a stacking context instead of relying
+   * on z-index:-1, which can put the canvas behind the root/background.
+   */
+  body.prepend(canvas);
+
+  function fail(reason, error) {
+    console.error("[terrain-bg] " + reason, error || "");
+    canvas.remove();
+    // Leave the fallback enabled.
+  }
+
+  /*
+   * ============================================================
+   * WEBGL
+   * ============================================================
+   */
+
+  let gl;
+  try {
+    gl = canvas.getContext("webgl", {
+      alpha: false,
+      antialias: false,
+      depth: true,
+      powerPreference: "high-performance",
+    });
+  } catch (error) {
+    fail("Unable to create WebGL context.", error);
+    return;
+  }
+
+  if (!gl) {
+    fail("WebGL is not supported.");
+    return;
+  }
 
   /*
    * ============================================================
@@ -44,13 +81,23 @@
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+    const canvasWidth = Math.max(
+      1,
+      Math.floor(window.innerWidth * dpr * QUALITY),
+    );
+    const canvasHeight = Math.max(
+      1,
+      Math.floor(window.innerHeight * dpr * QUALITY),
+    );
 
-    canvas.width = Math.max(1, Math.floor(window.innerWidth * dpr * QUALITY));
-    canvas.height = Math.max(1, Math.floor(window.innerHeight * dpr * QUALITY));
-    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      gl.viewport(0, 0, canvasWidth, canvasHeight);
+    }
   }
 
-  window.addEventListener("resize", resize);
+  window.addEventListener("resize", resize, { passive: true });
   resize();
 
   /*
@@ -378,45 +425,62 @@ void main() {
 
   function compileShader(type, source) {
     const shader = gl.createShader(type);
+    if (!shader) {
+      throw new Error("gl.createShader() failed.");
+    }
 
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
 
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      const log = gl.getShaderInfoLog(shader);
-
-      console.error(log);
+      const log = gl.getShaderInfoLog(shader) || "Unknown shader error.";
       gl.deleteShader(shader);
-
       throw new Error("Shader compilation failed:\n" + log);
     }
 
     return shader;
   }
 
-  const vertexShader = compileShader(gl.VERTEX_SHADER, vertSrc);
-  const fragmentShader = compileShader(gl.FRAGMENT_SHADER, fragSrc);
+  let vertexShader;
+  let fragmentShader;
+  let program;
+
+  try {
+    vertexShader = compileShader(gl.VERTEX_SHADER, vertSrc);
+    fragmentShader = compileShader(gl.FRAGMENT_SHADER, fragSrc);
+
+    program = gl.createProgram();
+
+    if (!program) {
+      throw new Error("gl.createProgram() failed.");
+    }
+
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      const log =
+        gl.getProgramInfoLog(program) || "Unknown program linking error.";
+
+      throw new Error("Program linking failed:\n" + log);
+    }
+
+    gl.useProgram(program);
+  } catch (error) {
+    if (vertexShader) gl.deleteShader(vertexShader);
+    if (fragmentShader) gl.deleteShader(fragmentShader);
+    if (program) gl.deleteProgram(program);
+
+    fail("Terrain shader initialization failed.", error);
+    return;
+  }
 
   /*
    * ============================================================
-   * PROGRAM
+   * TERRAIN MESH
    * ============================================================
    */
-
-  const program = gl.createProgram();
-
-  gl.attachShader(program, vertexShader);
-  gl.attachShader(program, fragmentShader);
-  gl.linkProgram(program);
-
-  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-    const log = gl.getProgramInfoLog(program);
-
-    console.error(log);
-    throw new Error("Program linking failed:\n" + log);
-  }
-
-  gl.useProgram(program);
 
   // Terrain mesh
   const positions = [];
@@ -434,16 +498,20 @@ void main() {
   for (let y = 0; y < GRID; y++) {
     for (let x = 0; x < GRID; x++) {
       const i = y * (GRID + 1) + x;
-
       indices.push(i, i + 1, i + GRID + 1, i + 1, i + GRID + 2, i + GRID + 1);
     }
   }
 
   const positionBuffer = gl.createBuffer();
+  const indexBuffer = gl.createBuffer();
+  if (!positionBuffer || !indexBuffer) {
+    fail("Unable to create terrain buffers.");
+    return;
+  }
+
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
-  const indexBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
   gl.bufferData(
     gl.ELEMENT_ARRAY_BUFFER,
@@ -503,13 +571,15 @@ void main() {
   gl.depthFunc(gl.LEQUAL);
   gl.disable(gl.CULL_FACE);
 
+  // Render
   const start = performance.now();
+  let animationFrame = null;
+  let stopped = false;
   function render() {
+    if (stopped) return;
     const time = (performance.now() - start) / 1000;
 
-    // Smooth pointer movement.
-    // The low-pass filter makes the terrain feel viscous.
-
+    // smooth pointer movement
     mouseX += (targetMouseX - mouseX) * 0.12;
     mouseY += (targetMouseY - mouseY) * 0.12;
     mouseActive += (targetMouseActive - mouseActive) * 0.1;
@@ -530,8 +600,22 @@ void main() {
 
     gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
 
-    requestAnimationFrame(render);
+    animationFrame = requestAnimationFrame(render);
   }
 
+  canvas.addEventListener("webglcontextlost", function (event) {
+    event.preventDefault();
+
+    stopped = true;
+
+    if (animationFrame !== null) {
+      cancelAnimationFrame(animationFrame);
+    }
+
+    fail("WebGL context was lost.");
+  });
+
+  // success!
+  body.classList.remove("shader-fallback");
   render();
 })();

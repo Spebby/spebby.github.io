@@ -1,14 +1,5 @@
 ---
 title: Thom Mott
-custom_links:
-  - label: About
-    url: /About/
-  - label: Contact
-    url: /Contact/
-  - label: Projects
-    url: /Projects/
-  - label: Resume
-    url: /Resume/
 redirect_from:
   - /Home/
   - /home/
@@ -19,41 +10,227 @@ redirect_from:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<!-- Basic Page Needs -->
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{ page.title }}</title>
-	{% include og-meta.html %}
-	<meta property="og:title" content="{{ page.title }}">
-	<meta property="twitter:title" content="{{ page.title }}">
-	{% include common-head.html %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+  :root{
+	--fg:#e9e6df;
+	--dim:#b9b4a8;
+	--accent:#d8cdb0;
+	--panel:rgba(8,8,10,0.55);
+	--line:rgba(216,205,176,0.55);
+  }
+  *{box-sizing:border-box;}
+  html, body {
+	height: 100%;
+	margin: 0;
+	background: #08080a;
+	color: var(--fg);
+	font-family: 'JetBrains Mono','Fira Code',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+	font-size: 15px;
+	overflow: hidden;
+  }
+
+  body.shader-fallback {
+	background: radial-gradient(
+	  circle at 30% 20%,
+	  #1c1a22,
+	  #08080a 70%
+	);
+  }
+
+  canvas {
+	position: fixed;
+	inset: 0;
+	width: 100vw;
+	height: 100dvh;
+	pointer-events: none;
+	z-index: -1;
+	display: block;
+  }
+
+  .frame{
+	height:100dvh;
+	padding:max(4vh,env(safe-area-inset-top,0px)) max(4vw,env(safe-area-inset-right,0px))
+			max(4vh,env(safe-area-inset-bottom,0px)) max(4vw,env(safe-area-inset-left,0px));
+	display:flex;
+	z-index:1;
+  }
+  .panel{
+	flex:1;display:flex;flex-direction:column;min-width:0;min-height:0;
+	background:var(--panel);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+	border:1px solid var(--line);position:relative;
+  }
+  .panel::before,.panel::after{content:'';position:absolute;width:14px;height:14px;
+	border:1px solid var(--accent);opacity:.9;}
+  .panel::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .panel::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+
+  .tabs{display:flex;border-bottom:1px solid var(--line);flex:0 0 auto;overflow-x:auto;}
+  .tab{padding:.6em 1.3em;color:var(--dim);white-space:nowrap;letter-spacing:.02em;cursor:pointer;}
+  .tab.active{color:#000;background:var(--accent);}
+  .tab:hover:not(.active){color:var(--fg);}
+
+  .content{flex:1 1 auto;min-height:0;padding:clamp(1.2rem,3vw,3rem);overflow:hidden;}
+  .content h1{margin:0 0 .3em;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:600;letter-spacing:.02em;}
+  .content .tagline{color:var(--dim);margin:0 0 1.4em;}
+  .content p{max-width:60ch;line-height:1.6;color:var(--fg);}
+  .content a{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent);}
+  .links{display:flex;gap:1.2em;margin-top:1.6em;color:var(--dim);}
+  .links a{color:var(--dim);border-bottom:1px dashed var(--line);}
+
+  .statusbar{flex:0 0 auto;display:flex;justify-content:space-between;
+	border-top:1px solid var(--line);padding:.5em 1em;font-size:.8em;color:var(--dim);}
+  .themebtn{background:none;border:none;color:var(--dim);font:inherit;cursor:pointer;
+	padding:.6em 1.3em;letter-spacing:.02em;margin-left:auto;border-left:1px solid var(--line);}
+  .themebtn:hover{color:var(--accent);background:rgba(255,255,255,0.06);}
+
+  .scanlines{position:fixed;inset:0;pointer-events:none;z-index:2;mix-blend-mode:overlay;opacity:.25;
+	background:repeating-linear-gradient(rgba(255,255,255,0) 0 2px,rgba(255,255,255,.06) 2px 3px);}
+
+  /* Mobile: its own layout rather than a squeezed desktop one */
+  @media (max-width:720px){
+	html,body{overflow-y:auto;}
+	.frame{height:auto;min-height:100dvh;padding:0;}
+	.panel{border:none;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);min-height:100dvh;}
+	.panel::before,.panel::after{display:none;}
+	.tabs{position:sticky;top:0;background:rgba(8,8,10,.75);z-index:1;}
+	.content{overflow:visible;padding:1.4rem;}
+	.statusbar{position:sticky;bottom:0;background:rgba(8,8,10,.75);}
+  }
+</style>
 </head>
-<body>
-	{% include header.html %}
-	
-	<div class="container my-5">
-		<div class="glass-box text-center mb-4 fw-normal" style="font-family: 'Raleway';">
-			<h2>Welcome to my Portfolio!</h2>
-			<span class="fs-5 text">
-				<p>I am Thom Mott, a current undergraduate in Computer Science: Game Design B.S. @ UCSC. My focus is on game development, computer graphics and game AI, often mixing these focuses for any given project. I have experience as a researcher in HCI from my time in undergrad. Prior to—and during—my time at university, I was an active modder for the video game <a href="https://store.steampowered.com/app/304930/Unturned/">Unturned</a>.</p>
-				<p>You can read more about me on my <a href="/About/">about</a> page!</p>
-			</span>
-		</div>
+<body class="shader-fallback">
+<div class="scanlines"></div>
 
-		<div class="glass-box">
-			<h2 class="text-center mb-4 fw-normal" style="font-family: 'Raleway';">
-				<p style="margin:0;">Featured Projects</p>
-			</h2>
-			<div id="projects-container" data-json="/assets/data/projectsFeatured.json" class="row g-4 justify-content-center">
-				<!-- Project cards will be inserted here -->
-			</div>
-		</div>
-	</div>
+<div class="frame">
+  <div class="panel">
+    <div class="tabs">
+      <div class="tab" data-page="home">~/home</div>
+      <div class="tab" data-page="about">~/about</div>
+      <div class="tab" data-page="projects">~/projects</div>
+      <div class="tab" data-page="resume">~/resume</div>
+      <div class="tab" data-page="contact">~/contact</div>
+      <button id="themeBtn" class="themebtn" type="button">theme: sys</button>
+    </div>
+    <div class="content">
+      <div class="page" data-page="home">
+        <h1>Thom Mott</h1>
+        <p class="tagline">game dev &middot; computer graphics &middot; game AI</p>
+        <p>Undergraduate in Computer Science: Game Design @ UCSC. I work across
+        game development, graphics, and AI, usually mixing all three on any
+        given project. Formerly an active <a href="#">Unturned</a> modder;
+        currently building the roguelike <a href="#">Gamba Gun</a>.</p>
+        <div class="links">
+          <a href="#">github</a><a href="#">linkedin</a><a href="#">bluesky</a><a href="#">newgrounds</a>
+        </div>
+      </div>
+      <div class="page" data-page="about" hidden>
+        <h1>About</h1>
+        <p class="tagline">the short version</p>
+        <p>Placeholder bio copy goes here — background, interests, how you got
+        into game dev/graphics/AI, whatever you'd put on the real about page.
+        Swap this section for your actual about.html content.</p>
+      </div>
+      <div class="page" data-page="projects" hidden>
+        <h1>Projects</h1>
+        <p class="tagline">a few things I've built</p>
+        <p><a href="#">Gamba Gun</a> &mdash; roguelike, one-line description here.</p>
+        <p><a href="#">Unturned mods</a> &mdash; modding framework, one-line description here.</p>
+        <p>Placeholder — swap for your real projects list.</p>
+      </div>
+      <div class="page" data-page="resume" hidden>
+        <h1>Resume</h1>
+        <p class="tagline">experience &amp; education</p>
+        <p>Placeholder resume summary. Link an actual PDF, or lay out
+        experience/education entries here in the same TUI style.</p>
+        <div class="links"><a href="#">download PDF</a></div>
+      </div>
+      <div class="page" data-page="contact" hidden>
+        <h1>Contact</h1>
+        <p class="tagline">say hi</p>
+        <p>Placeholder contact copy — email address, form, whatever fits.</p>
+        <div class="links">
+          <a href="#">email</a><a href="#">github</a><a href="#">linkedin</a>
+        </div>
+      </div>
+    </div>
+    <div class="statusbar">
+      <span>thom@spebby.net</span>
+      <span id="clock">--:--:--</span>
+    </div>
+  </div>
+</div>
 
+<script>
+(function(){
+  var THEMES = [
+    {name:'sys',    fg:'#e9e6df', dim:'#b9b4a8', accent:'#d8cdb0', panel:'rgba(8,8,10,0.55)',   line:'rgba(216,205,176,0.55)'},
+    {name:'nord',        fg:'#eceff4', dim:'#9aa5b1', accent:'#88c0d0', panel:'rgba(6,10,14,0.55)',  line:'rgba(136,192,208,0.5)'},
+    {name:'tokyo night', fg:'#c0caf5', dim:'#7982a9', accent:'#bb9af7', panel:'rgba(8,8,16,0.55)',   line:'rgba(187,154,247,0.5)'},
+    {name:'catppuccin',  fg:'#cdd6f4', dim:'#9399b2', accent:'#f5c2e7', panel:'rgba(8,8,14,0.55)',   line:'rgba(245,194,231,0.5)'}
+  ];
+  var idx = 0;
+  try {
+    var saved = localStorage.getItem('tui-theme');
+    if (saved) for (var i=0;i<THEMES.length;i++) if (THEMES[i].name===saved) idx = i;
+  } catch(e){}
 
-	<!--Bootstrapping-->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="{{ site.url }}/assets/js/projects.js"></script>
-	<script src="{{ site.url }}/assets/js/terrain-bg.js"></script>
+  function apply(i){
+    var t = THEMES[i], r = document.documentElement.style;
+    r.setProperty('--fg', t.fg);
+    r.setProperty('--dim', t.dim);
+    r.setProperty('--accent', t.accent);
+    r.setProperty('--panel', t.panel);
+    r.setProperty('--line', t.line);
+    var btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = 'theme: ' + t.name;
+    try { localStorage.setItem('tui-theme', t.name); } catch(e){}
+  }
+  apply(idx);
+  var btnEl = document.getElementById('themeBtn');
+  if (btnEl) btnEl.addEventListener('click', function(){
+    idx = (idx + 1) % THEMES.length;
+    apply(idx);
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+
+  function route(){
+    var wanted = (location.hash || '#home').slice(1);
+    var valid = pages.some(function(p){ return p.dataset.page === wanted; });
+    var page = valid ? wanted : 'home';
+
+    pages.forEach(function(p){ p.hidden = p.dataset.page !== page; });
+    tabs.forEach(function(t){ t.classList.toggle('active', t.dataset.page === page); });
+    document.querySelector('.content').scrollTop = 0;
+  }
+
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){ location.hash = t.dataset.page; });
+    t.setAttribute('tabindex', '0');
+    t.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); location.hash = t.dataset.page; }
+    });
+  });
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+
+<script>
+function tick(){
+  document.getElementById('clock').textContent =
+    new Date().toLocaleTimeString([], { hour12:false });
+}
+tick(); setInterval(tick, 1000);
+</script>
+
+<script src="assets/js/terrain-bg.js"></script>
 </body>
 </html>
