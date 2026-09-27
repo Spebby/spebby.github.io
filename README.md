@@ -9,3 +9,9 @@ Booliards and Tower of Tower cover art was created by
 created by [Flodotelito](https://x.com/FlodotelitoKifo)
 
 All photos taken by me in 2018-2020
+
+## Building
+
+All tools needed to build/develop this page are included in the included nix environment.
+You can activate this env using `nix develop`. From within the environment, use
+`jekyll serve` to preview the built site.
