@@ -11,6 +11,12 @@
   const GRID = 96;
   const QUALITY = 0.85;
   const MAX_DPR = 1.5;
+  const YAW = 0.78539816339;
+  const PITCH = 0.64;
+  const MESH_HALF_RANGE = 6.0; // `p = a_pos * 8.0` in the vertex shader
+  const DIAMOND_WX = 2 * MESH_HALF_RANGE * Math.cos(YAW); // max |view.x|
+  const DIAMOND_HY = 2 * MESH_HALF_RANGE * Math.cos(YAW) * Math.sin(PITCH); // max |view.y|
+  const BASE_ZOOM = 0.4;
 
   /*
    * ============================================================
@@ -79,6 +85,8 @@
    * ============================================================
    */
 
+  let currentZoom = BASE_ZOOM;
+
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
     const canvasWidth = Math.max(
@@ -95,6 +103,10 @@
       canvas.height = canvasHeight;
       gl.viewport(0, 0, canvasWidth, canvasHeight);
     }
+
+    const aspect = window.innerWidth / window.innerHeight;
+    const coverZoom = aspect / DIAMOND_WX + 1 / DIAMOND_HY; // true corner-coverage condition
+    currentZoom = Math.max(BASE_ZOOM, coverZoom);
   }
 
   window.addEventListener("resize", resize, { passive: true });
@@ -112,6 +124,7 @@ uniform float uVertexTime;
 uniform vec2 uResolution;
 uniform vec2 uMouse;
 uniform float uMouseActive;
+uniform float uZoom;
 
 varying vec2 vTerrainUV;
 varying float vHeight;
@@ -249,13 +262,7 @@ void main() {
     view.x /= aspect;
 
     const float zoom = 0.40;
-
-    gl_Position = vec4(
-        view.x * zoom,
-        view.y * zoom,
-        view.z * 0.035,
-        1.0
-    );
+    gl_Position = vec4(view.x * uZoom, view.y * uZoom, view.z * 0.035, 1.0);
 
     vTerrainUV = terrainUV;
     vHeight = height;
@@ -529,6 +536,7 @@ void main() {
   const uResolution = gl.getUniformLocation(program, "uResolution");
   const uMouse = gl.getUniformLocation(program, "uMouse");
   const uMouseActive = gl.getUniformLocation(program, "uMouseActive");
+  const uZoom = gl.getUniformLocation(program, "uZoom");
 
   // Mouse pointer
   // NOTE: the site's global CSS sets `canvas { pointer-events: none; }` so
@@ -594,6 +602,7 @@ void main() {
     gl.uniform2f(uResolution, canvas.width, canvas.height);
     gl.uniform2f(uMouse, mouseX, mouseY);
     gl.uniform1f(uMouseActive, mouseActive);
+    gl.uniform1f(uZoom, currentZoom);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
