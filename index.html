@@ -32,11 +32,7 @@ redirect_from:
   }
 
   body.shader-fallback {
-	background: radial-gradient(
-	  circle at 30% 20%,
-	  #1c1a22,
-	  #08080a 70%
-	);
+	background: radial-gradient(circle at 30% 20%, #1c1a22, #08080a 70%);
   }
 
   canvas {
@@ -71,31 +67,83 @@ redirect_from:
   .tab.active{color:#000;background:var(--accent);}
   .tab:hover:not(.active){color:var(--fg);}
 
-  .content{flex:1 1 auto;min-height:0;padding:clamp(1.2rem,3vw,3rem);overflow:hidden;}
-  .content h1{margin:0 0 .3em;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:600;letter-spacing:.02em;}
-  .content .tagline{color:var(--dim);margin:0 0 1.4em;}
-  .content p{max-width:60ch;line-height:1.6;color:var(--fg);}
-  .content a{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent);}
+  /* .content just lays out the active page — it never scrolls itself.
+     Each .page (or each .pane inside a split page) owns its own scroll. */
+  .content{flex:1 1 auto;min-height:0;overflow:hidden;}
+
+  .page{height:100%;}
+
+  .page.split{
+	display:grid;
+	grid-template-columns:1fr 2fr;
+	min-height:0; /* stop grid row from growing to fit tall pane content */
+  }
+  .pane-info{border-right:1px solid var(--line);}
+
+  /* Shared by: a plain page used directly as the scroll container, OR
+     a .pane inside a .page.split. Both get independent scroll + indicator. */
+  .scrollpane{
+	height:100%;
+	min-height:0;
+	min-width:0;
+	overflow-y:auto;
+	position:relative;
+	padding:clamp(1.2rem,3vw,3rem);
+	scrollbar-width:thin;
+	scrollbar-color:var(--line) transparent;
+  }
+  .scrollpane::-webkit-scrollbar{width:6px;}
+  .scrollpane::-webkit-scrollbar-track{background:transparent;}
+  .scrollpane::-webkit-scrollbar-thumb{background:var(--line);border-radius:0;}
+  .scrollpane::-webkit-scrollbar-thumb:hover{background:var(--accent);}
+
+  .scrollpane h1{margin:0 0 .3em;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:600;letter-spacing:.02em;}
+  .scrollpane .tagline{color:var(--dim);margin:0 0 1.4em;}
+  .scrollpane p{max-width:60ch;line-height:1.6;color:var(--fg);}
+  .scrollpane a{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent);}
   .links{display:flex;gap:1.2em;margin-top:1.6em;color:var(--dim);}
   .links a{color:var(--dim);border-bottom:1px dashed var(--line);}
 
+  /* -- more -- fade, pinned to the bottom of whichever .scrollpane it's in */
+  .more-indicator{
+	position:absolute;left:0;right:0;bottom:0;
+	padding:.4em 0;text-align:center;
+	font-size:.8em;color:var(--dim);
+	background:linear-gradient(transparent,var(--panel) 60%);
+	pointer-events:none;
+	opacity:0;transition:opacity .15s;
+  }
+  .more-indicator.visible{opacity:1;}
+
+  /* Placeholder card styling — replace with your real card markup/CSS */
+  .cards{display:flex;flex-direction:column;gap:1rem;}
+  .card{border:1px solid var(--line);padding:1em 1.2em;}
+  .card h2{margin:0 0 .3em;font-size:1em;font-weight:600;letter-spacing:.02em;}
+  .card p{margin:0;color:var(--dim);font-size:.9em;max-width:none;}
+
   .statusbar{flex:0 0 auto;display:flex;justify-content:space-between;
 	border-top:1px solid var(--line);padding:.5em 1em;font-size:.8em;color:var(--dim);}
-  .themebtn{background:none;border:none;color:var(--dim);font:inherit;cursor:pointer;
-	padding:.6em 1.3em;letter-spacing:.02em;margin-left:auto;border-left:1px solid var(--line);}
-  .themebtn:hover{color:var(--accent);background:rgba(255,255,255,0.06);}
+  .themebtn{background:none;border:none;color:var(--dim);font:inherit;cursor:pointer;padding:0;
+    letter-spacing:.02em;}
+  .themebtn:hover{color:var(--accent);}
 
   .scanlines{position:fixed;inset:0;pointer-events:none;z-index:2;mix-blend-mode:overlay;opacity:.25;
 	background:repeating-linear-gradient(rgba(255,255,255,0) 0 2px,rgba(255,255,255,.06) 2px 3px);}
 
-  /* Mobile: its own layout rather than a squeezed desktop one */
+  /* Mobile: whole page scrolls as one unit — no internal scroll containers,
+     so touch scrolling never has to fight between nested regions. */
   @media (max-width:720px){
 	html,body{overflow-y:auto;}
 	.frame{height:auto;min-height:100dvh;padding:0;}
 	.panel{border:none;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);min-height:100dvh;}
 	.panel::before,.panel::after{display:none;}
 	.tabs{position:sticky;top:0;background:rgba(8,8,10,.75);z-index:1;}
-	.content{overflow:visible;padding:1.4rem;}
+	.content{overflow:visible;height:auto;}
+	.page{height:auto;}
+	.page.split{grid-template-columns:1fr;}
+	.pane-info{border-right:none;border-bottom:1px solid var(--line);}
+	.scrollpane{height:auto;overflow-y:visible;padding:1.4rem;}
+	.more-indicator{display:none;}
 	.statusbar{position:sticky;bottom:0;background:rgba(8,8,10,.75);}
   }
 </style>
@@ -111,53 +159,125 @@ redirect_from:
       <div class="tab" data-page="projects">~/projects</div>
       <div class="tab" data-page="resume">~/resume</div>
       <div class="tab" data-page="contact">~/contact</div>
-      <button id="themeBtn" class="themebtn" type="button">theme: sys</button>
     </div>
     <div class="content">
-      <div class="page" data-page="home">
+
+      <div class="page scrollpane" data-page="home">
         <h1>Thom Mott</h1>
         <p class="tagline">game dev &middot; computer graphics &middot; game AI</p>
-        <p>Undergraduate in Computer Science: Game Design @ UCSC. I work across
+        <p>Graduate in Computational Media @ UCSC. I work across
         game development, graphics, and AI, usually mixing all three on any
         given project. Formerly an active <a href="#">Unturned</a> modder;
         currently building the roguelike <a href="#">Gamba Gun</a>.</p>
         <div class="links">
           <a href="#">github</a><a href="#">linkedin</a><a href="#">bluesky</a><a href="#">newgrounds</a>
         </div>
+        <div class="more-indicator"></div>
       </div>
-      <div class="page" data-page="about" hidden>
+
+      <div class="page scrollpane" data-page="about" hidden>
         <h1>About</h1>
         <p class="tagline">the short version</p>
         <p>Placeholder bio copy goes here — background, interests, how you got
         into game dev/graphics/AI, whatever you'd put on the real about page.
         Swap this section for your actual about.html content.</p>
+        <div class="more-indicator"></div>
       </div>
-      <div class="page" data-page="projects" hidden>
-        <h1>Projects</h1>
-        <p class="tagline">a few things I've built</p>
-        <p><a href="#">Gamba Gun</a> &mdash; roguelike, one-line description here.</p>
-        <p><a href="#">Unturned mods</a> &mdash; modding framework, one-line description here.</p>
-        <p>Placeholder — swap for your real projects list.</p>
+
+      <!-- Worked example of the 1:2 split layout -->
+      <div class="page split" data-page="projects" hidden>
+        <div class="pane pane-info scrollpane">
+          <h1>Projects</h1>
+          <p class="tagline">a few things I've built</p>
+          <p>Placeholder intro copy for the projects page — bio-style framing
+          text goes here, independent of the card list on the right.</p>
+          <div class="more-indicator"></div>
+        </div>
+        <div class="pane pane-cards scrollpane">
+          <div class="cards">
+            <div class="card">
+              <h2>Gamba Gun</h2>
+              <p>Roguelike, one-line description here.</p>
+            </div>
+            <div class="card">
+              <h2>Unturned mods</h2>
+              <p>Modding framework, one-line description here.</p>
+            </div>
+            <div class="card">
+              <h2>Placeholder project</h2>
+              <p>Swap this card grid for your real project list/markup.</p>
+            </div>
+            <div class="card">
+              <h2>Placeholder project</h2>
+              <p>Swap this card grid for your real project list/markup.</p>
+            </div>
+            <div class="card">
+              <h2>Placeholder project</h2>
+              <p>Swap this card grid for your real project list/markup.</p>
+            </div>
+            <div class="card">
+              <h2>Placeholder project</h2>
+              <p>Swap this card grid for your real project list/markup.</p>
+            </div>
+            <div class="card">
+              <h2>Placeholder project</h2>
+              <p>Swap this card grid for your real project list/markup.</p>
+            </div>
+            <div class="card">
+              <h2>Placeholder project</h2>
+              <p>Swap this card grid for your real project list/markup.</p>
+            </div>
+            <div class="card">
+              <h2>Placeholder project</h2>
+              <p>Swap this card grid for your real project list/markup.</p>
+            </div>
+            <div class="card">
+              <h2>Placeholder project</h2>
+              <p>Swap this card grid for your real project list/markup.</p>
+            </div>
+            <div class="card">
+              <h2>You had to scroll for me!</h2>
+              <p>Swap this card grid for your real project list/markup.</p>
+            </div>
+            <div class="card">
+              <h2>Placeholder project</h2>
+              <p>Swap this card grid for your real project list/markup.</p>
+            </div>
+            <div class="card">
+              <h2>Placeholder project</h2>
+              <p>Swap this card grid for your real project list/markup.</p>
+            </div>
+          </div>
+          <div class="more-indicator"></div>
+        </div>
       </div>
-      <div class="page" data-page="resume" hidden>
+
+      <div class="page scrollpane" data-page="resume" hidden>
         <h1>Resume</h1>
         <p class="tagline">experience &amp; education</p>
         <p>Placeholder resume summary. Link an actual PDF, or lay out
         experience/education entries here in the same TUI style.</p>
         <div class="links"><a href="#">download PDF</a></div>
+        <div class="more-indicator"></div>
       </div>
-      <div class="page" data-page="contact" hidden>
+
+      <div class="page scrollpane" data-page="contact" hidden>
         <h1>Contact</h1>
         <p class="tagline">say hi</p>
         <p>Placeholder contact copy — email address, form, whatever fits.</p>
         <div class="links">
           <a href="#">email</a><a href="#">github</a><a href="#">linkedin</a>
         </div>
+        <div class="more-indicator"></div>
       </div>
+
     </div>
     <div class="statusbar">
       <span>thom@spebby.net</span>
-      <span id="clock">--:--:--</span>
+	  <span class="right">
+        <button id="themeBtn" class="themebtn" type="button">[ theme: system24 ]</button>
+        <span id="clock">--:--:--</span>
+      </span>
     </div>
   </div>
 </div>
@@ -165,7 +285,7 @@ redirect_from:
 <script>
 (function(){
   var THEMES = [
-    {name:'sys',    fg:'#e9e6df', dim:'#b9b4a8', accent:'#d8cdb0', panel:'rgba(8,8,10,0.55)',   line:'rgba(216,205,176,0.55)'},
+    {name:'sys',         fg:'#e9e6df', dim:'#b9b4a8', accent:'#d8cdb0', panel:'rgba(8,8,10,0.55)',   line:'rgba(216,205,176,0.55)'},
     {name:'nord',        fg:'#eceff4', dim:'#9aa5b1', accent:'#88c0d0', panel:'rgba(6,10,14,0.55)',  line:'rgba(136,192,208,0.5)'},
     {name:'tokyo night', fg:'#c0caf5', dim:'#7982a9', accent:'#bb9af7', panel:'rgba(8,8,16,0.55)',   line:'rgba(187,154,247,0.5)'},
     {name:'catppuccin',  fg:'#cdd6f4', dim:'#9399b2', accent:'#f5c2e7', panel:'rgba(8,8,14,0.55)',   line:'rgba(245,194,231,0.5)'}
@@ -198,6 +318,34 @@ redirect_from:
 
 <script>
 (function(){
+  function updateIndicator(pane){
+    var indicator = pane.querySelector(':scope > .more-indicator');
+    if (!indicator) return;
+    var overflowing = pane.scrollHeight > pane.clientHeight + 1;
+    var atBottom = pane.scrollTop + pane.clientHeight >= pane.scrollHeight - 2;
+    indicator.classList.toggle('visible', overflowing && !atBottom);
+  }
+
+  var panes = Array.prototype.slice.call(document.querySelectorAll('.scrollpane'));
+  panes.forEach(function(pane){
+    pane.addEventListener('scroll', function(){ updateIndicator(pane); }, { passive:true });
+  });
+  window.addEventListener('resize', function(){ panes.forEach(updateIndicator); });
+
+  // Exposed so the router can reset/refresh a page's panes right after
+  // switching visibility (a hidden pane has zero size, so its indicator
+  // state needs recomputing once it's actually shown).
+  window.updateScrollpane = function(pane){
+    pane.scrollTop = 0;
+    updateIndicator(pane);
+  };
+
+  panes.forEach(updateIndicator);
+})();
+</script>
+
+<script>
+(function(){
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
   var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
 
@@ -206,9 +354,20 @@ redirect_from:
     var valid = pages.some(function(p){ return p.dataset.page === wanted; });
     var page = valid ? wanted : 'home';
 
-    pages.forEach(function(p){ p.hidden = p.dataset.page !== page; });
+    var activePage;
+    pages.forEach(function(p){
+      var isActive = p.dataset.page === page;
+      p.hidden = !isActive;
+      if (isActive) activePage = p;
+    });
     tabs.forEach(function(t){ t.classList.toggle('active', t.dataset.page === page); });
-    document.querySelector('.content').scrollTop = 0;
+
+    if (activePage && window.updateScrollpane){
+      var scrollpanes = activePage.classList.contains('scrollpane')
+        ? [activePage]
+        : Array.prototype.slice.call(activePage.querySelectorAll('.scrollpane'));
+      scrollpanes.forEach(window.updateScrollpane);
+    }
   }
 
   tabs.forEach(function(t){
