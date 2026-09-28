@@ -3,7 +3,7 @@
 (function () {
   "use strict";
 
-  var THEME_FILE = "/assets/data/themes.txt";
+  var THEME_FILE = window.location.origin + "/assets/data/themes.txt";
   var STORAGE_KEY = "tui-theme";
 
   var themes = [];

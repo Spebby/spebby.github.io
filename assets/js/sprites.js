@@ -2,7 +2,7 @@
 // Requires core.js, settings.js, and a .sprite-layer. Art is assumed to face RIGHT.
 (function () {
   const CONFIG = {
-    sheet: "assets/img/critter.png",
+    sheet: window.location.origin + "/assets/img/critter.png",
     frameW: 32,
     frameH: 32,
     walkFrames: 6,

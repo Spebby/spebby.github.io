@@ -3,6 +3,7 @@
  * ================================================= */
 :root {
     --transparency: 65%;
+	--blur: 10px;
 
     /* Base16 */
     --base00: #e9e6df;
@@ -143,8 +144,8 @@ canvas {
      *
      * The panel needs a translucent background for the effect to be visible.
      */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
 }
 
 
@@ -644,8 +645,8 @@ canvas {
     .panel {
         min-height: 100dvh;
         border: none;
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(var(--blur));
+        -webkit-backdrop-filter: blur(var(--blur));
     }
 
     .panel::before,

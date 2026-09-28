@@ -4,6 +4,7 @@ window.TUISettings = (function () {
   const KEY = "tui-settings";
   const DEFAULTS = {
     transparency: 0.65,
+    blur: 0.2,
     paused: TUICore.reduceMotion,
     timeScale: 1,
     oilSize: 1,
@@ -42,6 +43,11 @@ window.TUISettings = (function () {
         "--transparency",
         Math.round(values.transparency * 100) + "%",
       );
+    if (key == "blur")
+      document.documentElement.style.setProperty(
+        "--blur",
+        Math.round(values.blur * 25) + "px",
+      );
     if (key === "paused") TUICore.setPaused(values.paused);
     if (key === "timeScale") TUICore.setTimeScale(values.timeScale);
   }
@@ -73,6 +79,15 @@ window.TUISettings = (function () {
           max: 1,
           step: 0.01,
           fmt: (v) => Math.round(v * 100) + "%",
+        },
+        {
+          key: "blur",
+          label: "panel blur",
+          type: "range",
+          min: 0,
+          max: 1,
+          step: 0.01,
+          fmt: (v) => Math.round(v * 25) + "px",
         },
       ],
     },

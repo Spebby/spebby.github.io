@@ -16,6 +16,14 @@
       "link": "https://store.steampowered.com/news/app/304930/view/502855621608997213?l=english"
     },
     {
+      "title": "WebGL Experiments",
+      "description": "My work for an introductory computer graphics class, in bare-bones WebGL. Everything implemented is my own work.",
+      "image": "https://spebby.net/CSE160/assets/images/lighting.png",
+      "tags": ["OpenGL", "Graphics", "2026"],
+      "link": "https://spebby.net/CSE160/",
+      "source": "https://github.com/Spebby/CSE160"
+    },
+    {
       "title": "Wang Slime",
       "description": "A slime mold simulation combined with wang tiles. Slime agents navigate a simple procedurally generated map which can be updated at runtime. This is possible as the simulation is entirely ran on the GPU.",
       "video": "https://www.youtube.com/watch?v=br3pCslvHnw",

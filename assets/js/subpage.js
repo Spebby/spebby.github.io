@@ -1,13 +1,20 @@
 (function () {
-  var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+  var tabs = Array.prototype.slice.call(
+    document.querySelectorAll(".tab[data-page]"),
+  );
   var pages = Array.prototype.slice.call(document.querySelectorAll(".page"));
+  var defaultPage = tabs.length
+    ? tabs[0].dataset.page
+    : pages[0] && pages[0].dataset.page;
 
   function route() {
-    var wanted = (location.hash || "#home").slice(1);
+    if (!defaultPage) return; // no routable tabs on this page
+
+    var wanted = (location.hash || "#" + defaultPage).slice(1);
     var valid = pages.some(function (p) {
       return p.dataset.page === wanted;
     });
-    var page = valid ? wanted : "home";
+    var page = valid ? wanted : defaultPage;
 
     var activePage;
     pages.forEach(function (p) {
