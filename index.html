@@ -30,6 +30,7 @@ redirect_from:
       <div class="tab" data-page="settings">~/settings</div>
     </div>
     <div class="content">
+	  <div class="sprite-layer" aria-hidden="true"></div>
       {% include pages/home.html %}
       {% include pages/about.html %}
       {% include pages/projects.html %}
@@ -40,7 +41,7 @@ redirect_from:
     <div class="statusbar">
       <span>thom@spebby.net</span>
       <span class="right">
-        <button id="themeBtn" class="themebtn" type="button">[ theme: system24 ]</button>
+        <button id="themeBtn" class="themebtn" type="button"></button>
         <span id="clock">--:--:--</span>
       </span>
     </div>
@@ -51,7 +52,10 @@ redirect_from:
 <script src="{{ site.url }}/assets/js/scroll-indicator.js"></script>
 <script src="{{ site.url }}/assets/js/subpage.js"></script>
 <script src="{{ site.url }}/assets/js/clock.js"></script>
+<script src="{{ site.url }}/assets/js/core.js"></script>
+<script src="{{ site.url }}/assets/js/settings.js"></script>
 <script src="{{ site.url }}/assets/js/terrain-bg.js"></script>
+<script src="{{ site.url }}/assets/js/peekers.js"></script>
 <script src="{{ site.url }}/assets/js/projects.js"></script>
 </body>
 </html>

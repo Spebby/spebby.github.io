@@ -116,7 +116,7 @@ base0E: #b48ead
 base0F: #ab7967
 
 # author Michaël Ball
-[tokyo night]
+[tokyo-night]
 base00: #1A1B26
 base01: #16161E
 base02: #2F3549
@@ -192,7 +192,7 @@ base0E: #ca9ee6
 base0F: #eebebe
 
 # author Fergus Collins (https://github.com/ferguscollins)
-[windows 95]
+[windows-95]
 base00: #000000
 base01: #1C1C1C
 base02: #383838

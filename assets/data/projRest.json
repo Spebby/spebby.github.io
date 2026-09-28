@@ -43,6 +43,13 @@
       "image": "/assets/cards/CIJ.jpg",
       "tags": ["Unturned", "2019"],
       "link": "https://steamcommunity.com/sharedfiles/filedetails/?id=1945083886"
+    },
+    {
+      "title": "Freighter",
+      "description": "Second place winner of the community-hosted '2019 June MapJam'. Development was 2 weeks, and was the first major project I worked on that released.",
+      "image": "/assets/cards/Freighter.jpg",
+      "tags": ["Unturned", "2019"],
+      "link": "https://steamcommunity.com/sharedfiles/filedetails/?id=1765946790"
     }
   ]
 }

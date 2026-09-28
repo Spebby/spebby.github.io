@@ -2,7 +2,7 @@
  * Theme
  * ================================================= */
 :root {
-	--transparency: 65%;
+    --transparency: 65%;
 
     /* Base16 */
     --base00: #e9e6df;
@@ -26,7 +26,7 @@
     --fg: var(--base05);
     --dim: var(--base04);
     --accent: var(--base0D);
-	--panel: color-mix(in srgb, var(--base00) var(--transparency), transparent);
+    --panel: color-mix(in srgb, var(--base00) var(--transparency), transparent);
     --line: color-mix(in srgb, var(--accent) var(--transparency), transparent);
 
     --red: var(--base08);
@@ -216,6 +216,7 @@ canvas {
  * their scrolling so that split layouts can have independent scroll areas.
  */
 .content {
+    position: relative;
     flex: 1 1 auto;
     min-height: 0;
     overflow: hidden;
@@ -258,8 +259,8 @@ canvas {
     min-width: 0;
     min-height: 0;
     overflow-y: auto;
-	--pane-pad: clamp(1.2rem, 3vw, 3rem);
-	padding: var(--pane-pad);
+    --pane-pad: clamp(1.2rem, 3vw, 3rem);
+    padding: var(--pane-pad);
 
     /* scrollbar-width and scrollbar-color are Firefox-specific
      * scrollbar customization properties.
@@ -310,15 +311,48 @@ canvas {
 * so bootstrap or custom classes override more naturally
 */
 :where(.scrollpane) p {
-	max-width: 60ch;
-	line-height: 1.6;
-	color: var(--fg);
+    max-width: 60ch;
+    line-height: 1.6;
+    color: var(--fg);
 }
 :where(.scrollpane) a {
-	color: var(--accent);
-	text-decoration: none;
-	border-bottom: 1px dashed var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent);
 }
+
+.setting-group{border-top:1px solid var(--line);padding:1em 0 .4em;margin-top:1em;}
+.setting-group h2{margin:0 0 .6em;font-size:.85em;font-weight:400;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;}
+.setting{position:relative;display:grid;grid-template-columns:12em 1fr 4.5em;align-items:center;gap:1em;padding:.35em 0;}
+.setting input[type=range]{width:100%;accent-color:var(--accent);}
+.setting input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:1.2em;margin:0;background:transparent;cursor:pointer;
+}
+.setting input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--line);}
+.setting input[type=range]::-moz-range-track{height:2px;background:var(--line);}
+.setting input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:10px;height:1.1em;
+  margin-top:calc((2px - 1.1em) / 2);   /* centers thumb on the track (webkit only) */
+  background:var(--accent);border:none;border-radius:0;
+}
+.setting input[type=range]::-moz-range-thumb{
+  width:10px;height:1.1em;background:var(--accent);border:none;border-radius:0;
+}
+.setting input[type=range]:hover::-webkit-slider-thumb{background:var(--fg);}
+.setting input[type=range]:hover::-moz-range-thumb{background:var(--fg);}
+.setting input[type=range]:focus-visible{outline:1px dashed var(--accent);outline-offset:3px;}
+.setting input[type=range]:disabled{cursor:not-allowed;}
+
+.setting-value{text-align:right;color:var(--dim);}
+.setting.disabled{opacity:.4;}
+.setting.toggle{grid-template-columns:auto 1fr;cursor:pointer;}
+.setting.toggle input{position:absolute;opacity:0;pointer-events:none;}
+.setting .box::before{content:'[ ]';color:var(--dim);}
+.setting.toggle input:checked + .box::before{content:'[x]';color:var(--accent);}
+.setting.toggle input:focus-visible + .box::before{outline:1px dashed var(--accent);}
+.resetbtn{background:none;border:1px solid var(--line);color:var(--dim);font:inherit;padding:.5em 1.2em;cursor:pointer;margin-top:1.4em;}
+.resetbtn:hover{color:var(--accent);border-color:var(--accent);}
 
 
 /* =================================================
@@ -327,7 +361,7 @@ canvas {
 
 .links {
     display: flex;
-	flex-wrap: wrap;
+    flex-wrap: wrap;
     gap: 1.2em;
     margin-top: 1.6em;
     color: var(--dim);
@@ -527,6 +561,8 @@ canvas {
     color: var(--accent);
 }
 
+.themebtn::before { content: '['; }
+.themebtn::after  { content: ']'; }
 
 /* =================================================
  * CRT / scanline effect
@@ -554,6 +590,37 @@ canvas {
     z-index: 2;
 }
 
+/* =================================================
+ * Sprites
+ * ================================================= */
+.sprite-layer{
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+.sprite{
+    position:sticky;
+    top:0;
+    left:0;
+    background-repeat:no-repeat;
+    image-rendering:pixelated;
+    will-change:transform;
+    transform-origin: 0 0;
+}
+.peeker{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1;
+    white-space: pre;
+    transform-origin: center center;
+    pointer-events: none;
+    user-select: none;
+}
 
 /* =================================================
  * Mobile
@@ -626,4 +693,10 @@ canvas {
         bottom: 0;
         background: rgba(8, 8, 10, 0.75);
     }
+
+    .desktop-only{display:none;}
+    .setting:not(.toggle){grid-template-columns:1fr auto;}
+    .setting:not(.toggle) .setting-label{grid-area:1/1;}
+    .setting:not(.toggle) .setting-value{grid-area:1/2;}
+    .setting:not(.toggle) input{grid-area:2/1/3/3;}
 }

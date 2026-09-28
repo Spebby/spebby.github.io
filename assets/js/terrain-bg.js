@@ -52,6 +52,7 @@
   function fail(reason, error) {
     console.error("[terrain-bg] " + reason, error || "");
     canvas.remove();
+    body.classList.add("shader-fallback");
     // Leave the fallback enabled.
   }
 
@@ -86,7 +87,6 @@
    */
 
   let currentZoom = BASE_ZOOM;
-
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
     const canvasWidth = Math.max(
@@ -279,6 +279,10 @@ void main() {
   const fragSrc = `
 precision highp float;
 uniform float uFragmentTime;
+uniform float uOilSize;    // >1 = bigger swirls
+uniform float uHue;        // 0..1 = one full palette cycle
+uniform float uIntensity;  // palette amplitude
+uniform float uBands;      // palette frequency (more/fewer color bands)
 varying vec2 vTerrainUV;
 varying float vHeight;
 varying vec3 vNormal;
@@ -350,10 +354,9 @@ float oilPattern(vec2 p, float t) {
 
 vec3 palette(float t) {
     vec3 a = vec3(0.55, 0.45, 0.55);
-    vec3 b = vec3(0.45, 0.45, 0.45);
-    vec3 c = vec3(1.0, 0.9, 0.6);
-    vec3 d = vec3(0.3, 0.55, 0.75);
-
+    vec3 b = vec3(0.45, 0.45, 0.45) * uIntensity;
+    vec3 c = vec3(1.0, 0.9, 0.6) * uBands;
+    vec3 d = vec3(0.3, 0.55, 0.75) + uHue;
     return a + b * cos(6.28318 * (c * t + d));
 }
 
@@ -362,7 +365,7 @@ void main() {
     float t = uFragmentTime * 0.5;
 
 	// Terrain space coords for oil.
-    vec2 uv = vTerrainUV * 2.4;
+    vec2 uv = vTerrainUV * 2.4 / uOilSize;
 
 	// Stretch slightly on elevanted terrain
     uv += vec2(
@@ -533,10 +536,15 @@ void main() {
 
   const uVertexTime = gl.getUniformLocation(program, "uVertexTime");
   const uFragmentTime = gl.getUniformLocation(program, "uFragmentTime");
+  const uOilSize = gl.getUniformLocation(program, "uOilSize");
+  const uHue = gl.getUniformLocation(program, "uHue");
+  const uIntensity = gl.getUniformLocation(program, "uIntensity");
+  const uBands = gl.getUniformLocation(program, "uBands");
   const uResolution = gl.getUniformLocation(program, "uResolution");
   const uMouse = gl.getUniformLocation(program, "uMouse");
   const uMouseActive = gl.getUniformLocation(program, "uMouseActive");
   const uZoom = gl.getUniformLocation(program, "uZoom");
+  const S = window.TUISettings;
 
   // Mouse pointer
   // NOTE: the site's global CSS sets `canvas { pointer-events: none; }` so
@@ -552,79 +560,54 @@ void main() {
   let mouseActive = 0;
   let targetMouseActive = 0;
 
-  function updatePointer(x, y) {
-    const px = x / window.innerWidth;
-    const py = y / window.innerHeight;
-
-    targetMouseX = px * 2.0 - 1.0;
-    targetMouseY = 1.0 - py * 2.0;
-    targetMouseActive = 1;
-  }
-
-  window.addEventListener(
-    "pointermove",
-    (e) => updatePointer(e.clientX, e.clientY),
-    { passive: true },
-  );
-
-  window.addEventListener(
-    "pointerleave",
-    () => {
-      targetMouseActive = 0;
-    },
-    { passive: true },
-  );
-
   gl.enable(gl.DEPTH_TEST);
   gl.depthFunc(gl.LEQUAL);
   gl.disable(gl.CULL_FACE);
 
   // Render
-  const start = performance.now();
-  let animationFrame = null;
   let stopped = false;
-  function render() {
+  let time = 0;
+  function render(dt) {
     if (stopped) return;
-    const time = (performance.now() - start) / 1000;
+    time += dt;
 
-    // smooth pointer movement
+    if (TUICore.pointer.active) {
+      targetMouseX = (TUICore.pointer.x / window.innerWidth) * 2.0 - 1.0;
+      targetMouseY = 1.0 - (TUICore.pointer.y / window.innerHeight) * 2.0;
+      targetMouseActive = 1;
+    } else {
+      targetMouseActive = 0;
+    }
+
     mouseX += (targetMouseX - mouseX) * 0.12;
     mouseY += (targetMouseY - mouseY) * 0.12;
     mouseActive += (targetMouseActive - mouseActive) * 0.1;
 
     gl.clearColor(0, 0, 0, 1);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
     gl.useProgram(program);
-
     gl.uniform1f(uVertexTime, time);
     gl.uniform1f(uFragmentTime, time);
+    gl.uniform1f(uOilSize, S.get("oilSize"));
+    gl.uniform1f(uHue, S.get("hue"));
+    gl.uniform1f(uIntensity, S.get("intensity"));
+    gl.uniform1f(uBands, S.get("bands"));
     gl.uniform2f(uResolution, canvas.width, canvas.height);
     gl.uniform2f(uMouse, mouseX, mouseY);
     gl.uniform1f(uMouseActive, mouseActive);
     gl.uniform1f(uZoom, currentZoom);
-
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-
     gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
-
-    animationFrame = requestAnimationFrame(render);
   }
 
   canvas.addEventListener("webglcontextlost", function (event) {
     event.preventDefault();
-
     stopped = true;
-
-    if (animationFrame !== null) {
-      cancelAnimationFrame(animationFrame);
-    }
-
+    TUICore.remove(render);
     fail("WebGL context was lost.");
   });
 
-  // success!
   body.classList.remove("shader-fallback");
-  render();
+  TUICore.add(render);
 })();
