@@ -2,14 +2,14 @@
   "projects": [
     {
       "title": "Gamba Gun",
-      "description": "An ongoing action roguelike game project, developed by 'Nolamo Softworks'. My contributions focus on refactoring the project and managing development of supporting gameplay systems, specifically the GPU-based splats system and localisation system.",
+      "description": "An ongoing action roguelike game project, developed by 'Nolamo Softworks'. My contributions focus on refactoring the project and managing development of supporting gameplay systems, specifically the GPU-based splats, enemy AI and localisation systems.",
       "image": "/assets/cards/Gamba.png",
       "tags": ["Unity", "WIP"],
       "credit": "https://x.com/FlodotelitoKifo",
       "link": "https://store.steampowered.com/app/3497930/Gamba_Gun/"
     },
     {
-      "title": "California V2",
+      "title": "California 2",
       "description": "A vastly overhauled update for the 2019 'California' map for Unturned. The project had 6 years of development time with 5-6 active developers at any given time from many countries. This update featured a greatly expanded map, gameplay loop and increased visual fidelity.",
       "image": "/assets/cards/C2.png",
       "tags": ["Unturned", "2026"],
@@ -23,19 +23,20 @@
       "source": "https://github.com/Spebby/Wang-Slime"
     },
     {
-      "title": "Sistor Fixor",
+      "title": "WebGL Experiments",
+      "description": "My work for an introductory computer graphics class, in bare-bones WebGL. Everything implemented is my own work.",
+      "image": "https://spebby.net/CSE160/assets/images/lighting.png",
+      "tags": ["OpenGL", "Graphics", "2026"],
+      "link": "https://spebby.net/CSE160/",
+      "source": "https://github.com/Spebby/CSE160"
+    },
+    {
+      "title": "Sistor Fixor - Prototype",
       "description": "A prototype for a Digital Logic Sim puzzle game. Developed in 2 days, the focus of the game is more on problem solving than real-world accuracy. Still, it is accurate for all the simplistic operations present.",
       "image": "/assets/cards/Fixor.png",
       "tags": ["Unity", "2025"],
       "link": "https://spebby.net/SistorFixor/",
       "source": "https://github.com/Spebby/SistorFixor/"
-    },
-    {
-      "title": "Rio de Janeiro Remastered",
-      "description": "Remake of the 2019 curated map, with greatly improved gameplay and visuals. My work was largely focused on optimisation, and assisting with direction, playtesting and ideation.",
-      "image": "/assets/cards/Rio2.png",
-      "tags": ["Unturned", "2025"],
-      "link": "https://store.steampowered.com/news/app/304930/view/615409552076048049"
     },
     {
       "title": "Dungeon Generator",
@@ -45,34 +46,11 @@
       "source": "https://github.com/Spebby/Dungeon-Generator"
     },
     {
-      "title": "StrongBadZone",
-      "description": "A recreation of StrongBadZone from Homestar Runner, Strong Bad Email #94. This was programmed in TypeScript using the Phaser 3 framework, and was my final project for CMPM 120 @ UCSC, Winter '25. The majority of art assets are 3D wireframe models.",
-      "image": "/assets/cards/SBZ.png",
-      "tags": ["Phaser", "2025"],
-      "link": "https://spebby.net/StrongBadZone/",
-      "source": "https://github.com/Spebby/StrongBadZone"
-    },
-    {
-      "title": "Fly-By",
-      "description": "A midterm project for CMPM 120 & UCSC, Winter '25. Fly-By is an Endless Runner where you pilot a paper airplane, weaving through an ever increasing volley of obstacles. This game used a custom physics routine modeled after Minecraft's Elytra physics.",
-      "image": "/assets/cards/Flyby.png",
-      "tags": ["Phaser", "2025"],
-      "link": "https://spebby.net/Fly-By/",
-      "source": "https://github.com/Spebby/Fly-By"
-    },
-    {
       "title": "Spebby's Chess Engine",
       "description": "A basic Chess Engine & AI programmed in C++ using Dear ImGui as a graphical front-end. The engine makes use of bitboards and negamax for its inbuilt AI, and can play to depth 5 in near realtime.",
       "image": "/assets/cards/Chess.png",
       "tags": ["C++", "AI", "2024"],
       "source": "https://github.com/Spebby/CMPM123-Chess/"
-    },
-    {
-      "title": "Back to the Frog",
-      "description": "Final project for an introductory game design & programming class & UCSC, made part-time in 3 weeks. This was my first foray into the Godot engine after a nearly 2 year long break from working on game programming. I wrote the entire codebase.",
-      "image": "/assets/cards/Frog.png",
-      "tags": ["Godot", "2024"],
-      "source": "https://github.com/Spebby/80K-Finale"
     },
     {
       "title": "Booliards",
@@ -106,22 +84,8 @@
       "link": "https://steamcommunity.com/games/304930/announcements/detail/1702860089589301134"
     },
     {
-      "title": "Rio de Janeiro",
-      "description": "The original 2019 release of the curated unturned map. I assisted with development and became more involved towards the end of development, helping to push the map, which had been in development for years, across the finish line. Post-release I helped to support it with bug fixes, community support and optimisations.",
-      "image": "/assets/cards/Rio1.png",
-      "tags": ["Unturned", "2019"],
-      "link": "https://store.steampowered.com/news/app/304930/view/2909844527767404562"
-    },
-    {
-      "title": "Christmas In July",
-      "description": "A christmas-themed entry to the community-hosted '2019 Summer MapJam'. Development was just under a month and intended to be played as a deathmatch map.",
-      "image": "/assets/cards/CIJ.jpg",
-      "tags": ["Unturned", "2019"],
-      "link": "https://steamcommunity.com/sharedfiles/filedetails/?id=1945083886"
-    },
-    {
       "title": "Freighter",
-      "description": "Second place winner of the community-hosted 'MapJam June 2019'. Development was 2 weeks, and was the first major project I worked on that released.",
+      "description": "Second place winner of the community-hosted '2019 June MapJam'. Development was 2 weeks, and was the first major project I worked on that released.",
       "image": "/assets/cards/Freighter.jpg",
       "tags": ["Unturned", "2019"],
       "link": "https://steamcommunity.com/sharedfiles/filedetails/?id=1765946790"

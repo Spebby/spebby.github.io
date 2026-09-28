@@ -1,14 +1,19 @@
 { pkgs }:
+let
+  gems = pkgs.ruby_3_3.withPackages (
+    ps: with ps; [
+      jekyll
+      jekyll-redirect-from
+      kramdown-parser-gfm
+    ]
+  );
+in
 pkgs.writeShellApplication {
   name = "serve-site";
-  runtimeInputs = with pkgs; [
-    bash
-    ruby_3_3
-    rubyPackages_3_3.jekyll
-    rubyPackages_3_3.jekyll-redirect-from
-    rubyPackages_3_3.kramdown-parser-gfm
-  ];
+
+  runtimeInputs = [ gems ];
+
   text = ''
-    jekyll serve
+    exec jekyll serve
   '';
 }

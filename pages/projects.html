@@ -1,48 +1,24 @@
 ---
-title: Projects
-permalink: /Projects/
-custom_links:
-  - label: Home
-    url: /
-  - label: About
-    url: /About/
-  - label: Contact
-    url: /Contact/
-  - label: Resume
-    url: /Resume/
+layout: null
+permalink: /projects/
 redirect_from:
-  - /projects/
+  - /Projects/
+  - /Portfolio/
+  - /portfolio/
+  - /Work/
+  - /work/
 ---
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<!-- Basic Page Needs -->
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{ page.title }}</title>
-	{% include og-meta.html %}
-	{% include common-head.html %}
+	<meta http-equiv="refresh" content="0; url=/#projects">
+	<script>
+		window.location.replace("/#projects");
+	</script>
 </head>
 <body>
-	{% include header.html %}
-	
-	<div class="container my-5">
-		<div class="glass-box text-center mb-4 fw-normal" style="font-family: 'Raleway'; color: #e2e2e2;">
-			<p class="fs-5 text my-auto">Here are the remainder of the projects I've released that I deam showcasable, that I have some non-trivial tie to!</p>
-		</div>
-		<div class="glass-box">
-			<h2 class="text-center mb-4 fw-normal" style="font-family: 'Raleway'; color: #e2e2e2;">All Projects</h2>
-			<div id="projects-container" data-json="/assets/data/projRest.json" class="row g-4 justify-content-center">
-				<!-- Project cards will be inserted here -->
-			</div>
-		</div>
-	</div>
-
-
-	<!--Bootstrapping-->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="{{ site.url }}/assets/js/projects.js"></script>
-	<script src="{{ site.url }}/assets/js/terrain-bg.js"></script>
+	<p><a href="/#projects">Continue to Projects</a></p>
 </body>
 </html>

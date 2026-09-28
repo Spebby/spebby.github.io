@@ -1,0 +1,41 @@
+<div class="page split" data-page="home">
+	<div class="pane pane-info scrollpane">
+		<h1>Thom Mott</h1>
+		<p class="tagline">game dev &middot; computer graphics &middot; game ai</p>
+
+		<p>
+		Graduate in Computational Media @ UCSC. I work across
+		game development, graphics, and AI, often mixing these focuses for any
+		given project. Formerly an active <a href="#">Unturned</a> modder;
+		currently building the roguelike <a href="#">Gamba Gun</a>.
+		</p>
+
+		<nav class="d-flex flex-wrap" aria-label="Profiles">
+		  <a class="tui-icon-link" href="https://github.com/spebby"
+			 aria-label="GitHub" data-label="github.com/spebby"
+			 style="--icon:url('{{ site.url }}/assets/icons/github.svg')"></a>
+		  <a class="tui-icon-link" href="https://linkedin.com/in/thom-mott/"
+			 aria-label="LinkedIn" data-label="linkedin.com/in/thom-mott/"
+			 style="--icon:url('{{ site.url }}/assets/icons/linkedin.svg')"></a>
+		  <a class="tui-icon-link" href="https://orcid.org/0009-0004-2834-788X"
+			 aria-label="ORCiD" data-label="orcid.org/0009-0004-2834-788X"
+			 style="--icon:url('{{ site.url }}/assets/icons/orcid.svg')"></a>
+		  <a class="tui-icon-link" href="https://bsky.app/profile/spebby.net"
+			 aria-label="Bluesky" data-label="bsky.app/profile/spebby.net"
+			 style="--icon:url('{{ site.url }}/assets/icons/bluesky.svg')"></a>
+		  <a class="tui-icon-link" href="https://instagram.com/spebby_/"
+			 aria-label="Instagram" data-label="instagram.com/spebby_"
+			 style="--icon:url('{{ site.url }}/assets/icons/instagram.svg')"></a>
+		</nav>
+		<div class="more-indicator"></div>
+	</div>
+
+	<div class="pane pane-cards scrollpane">
+	<div
+		id="projects-container"
+		data-json="/assets/data/projFeat.json"
+		class="cards row g-4 justify-content-center">
+	</div>
+	<div class="more-indicator"></div>
+	</div>
+</div>
