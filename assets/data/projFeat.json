@@ -9,7 +9,7 @@
       "link": "https://store.steampowered.com/app/3497930/Gamba_Gun/"
     },
     {
-      "title": "California V2",
+      "title": "California 2",
       "description": "A vastly overhauled update for the 2019 'California' map for Unturned. The project had 6 years of development time with 5-6 active developers at any given time from many countries. This update featured a greatly expanded map, gameplay loop and increased visual fidelity.",
       "image": "/assets/cards/C2.png",
       "tags": ["Unturned", "2026"],
@@ -82,13 +82,6 @@
       "image": "/assets/cards/EasterIsland.png",
       "tags": ["Unturned", "2020"],
       "link": "https://steamcommunity.com/games/304930/announcements/detail/1702860089589301134"
-    },
-    {
-      "title": "Freighter",
-      "description": "Second place winner of the community-hosted '2019 June MapJam'. Development was 2 weeks, and was the first major project I worked on that released.",
-      "image": "/assets/cards/Freighter.jpg",
-      "tags": ["Unturned", "2019"],
-      "link": "https://steamcommunity.com/sharedfiles/filedetails/?id=1765946790"
     }
   ]
 }

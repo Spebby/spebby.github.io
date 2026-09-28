@@ -1,160 +1,702 @@
+/* =================================================
+ * Theme
+ * ================================================= */
+:root {
+    --transparency: 65%;
+
+    /* Base16 */
+    --base00: #e9e6df;
+    --base01: #dedad0;
+    --base02: #c9c4b8;
+    --base03: #b9b4a8;
+    --base04: #8f8a80;
+    --base05: #e9e6df;
+    --base06: #f2efe9;
+    --base07: #faf8f4;
+    --base08: #c94f4f;
+    --base09: #c4773a;
+    --base0A: #b08b3e;
+    --base0B: #789b55;
+    --base0C: #5d9b9b;
+    --base0D: #6b83a6;
+    --base0E: #8b6fa8;
+    --base0F: #9a5c5c;
+
+    /* semantic application colors */
+    --fg: var(--base05);
+    --dim: var(--base04);
+    --accent: var(--base0D);
+    --panel: color-mix(in srgb, var(--base00) var(--transparency), transparent);
+    --line: color-mix(in srgb, var(--accent) var(--transparency), transparent);
+
+    --red: var(--base08);
+    --orange: var(--base09);
+    --yellow: var(--base0A);
+    --green: var(--base0B);
+    --cyan: var(--base0C);
+    --blue: var(--base0D);
+    --purple: var(--base0E);
+}
+
+
+
+/* =================================================
+ * Base / Reset
+ * ================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: #08080a;
+    color: var(--fg);
+    font-family:
+        "JetBrains Mono",
+        "Fira Code",
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Consolas,
+        monospace;
+    font-size: 15px;
+}
+
+
+/* =================================================
+ * Body states
+ * ================================================= */
+
+body.shader-fallback {
+    background: radial-gradient(
+        circle at 30% 20%,
+        #1c1a22,
+        #08080a 70%
+    );
+}
+
+
+/* =================================================
+ * Background canvas
+ * ================================================= */
+
 canvas {
     position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    pointer-events: none;
-}
+    inset: 0;
 
-html, body {
-    overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
-	scroll-behavior: smooth;
-}
+    /* dvh = dynamic viewport height.
+     * Unlike vh, dvh accounts for browser UI that can appear/disappear
+     * on mobile devices. This helps prevent the canvas from being too
+     * tall or short when the mobile browser chrome changes size.
+     */
+    width: 100vw;
+    height: 100dvh;
 
-body {
-	overscroll-behaviour-y: none;
-}
-
-footer {
-    margin-top: auto;
-}
-
-.icon {
-    width: 2em;
-    height: 2em;
-    margin: 4px;
-    border-radius: 4px;
-}
-
-.socials {
-    align-content : center;
-
-    display : flex;
-    flex-direction : row;
-    flex-wrap : nowrap;
-    justify-content : flex-start
-}
-
-.socials>a>img {
-    height : 1.8em;
-    width  : 1.8em;
-    
-    border : none;
-    border-radius : 5px;
-
-    cursor : pointer;
-    transition : 0.3s;
-}
-
-.socials>a>img:hover {
-    opacity : 0.7;
-}
-
-.socials>a {
-    align-self : auto;
-    flex : 0 1 auto
-}
-
-.title {
-    color: #222;
-    text-decoration: none;
-    font-variation-settings: "wdth" 100, "SPAC" 0;
-}
-
-.title h1 {
-    transition: 0.2s ease-in-out font-variation-settings;
-}
-
-.title:hover h1 {
-    font-variation-settings: "wght" 900, "wdth" 100, "SPAC" 0;
-}
-
-.hero-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 120px 0;
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-}
-
-/* Section Styles */
-.section-padding {
-    padding: 80px 0;
-}
-
-.section-title {
-    font-weight: 700;
-    margin-bottom: 3rem;
-    position: relative;
-}
-
-.section-title::after {
-    content: '';
     display: block;
-    width: 60px;
-    height: 4px;
-    background: #667eea;
-    margin: 15px auto 0;
+    pointer-events: none;
+    z-index: -1;
 }
 
-/* Project Cards */
-.project-card {
-    transition: transform 0.3s, box-shadow 0.3s;
-    height: 100%;
-    border: none;
+
+/* =================================================
+ * Main frame / panel
+ * ================================================= */
+
+.frame {
     display: flex;
-    flex-direction: column;
+    height: 100dvh;
+
+    /* env() reads browser-provided environment variables.
+     *
+     * safe-area-inset-* accounts for things such as the iPhone notch
+     * and home indicator. The 0px value is the fallback.
+     *
+     * max() chooses whichever value is larger: the viewport-relative
+     * padding or the device safe-area inset.
+     */
+    padding:
+        max(4vh, env(safe-area-inset-top, 0px))
+        max(4vw, env(safe-area-inset-right, 0px))
+        max(4vh, env(safe-area-inset-bottom, 0px))
+        max(4vw, env(safe-area-inset-left, 0px));
+
+    z-index: 1;
 }
 
-.project-card .card-body {
+.panel {
+    position: relative;
+    display: flex;
     flex: 1;
-    display: flex;
     flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    background: var(--panel);
+    border: 1px solid var(--line);
+
+    /*
+     * backdrop-filter applies the blur to whatever is behind the element,
+     * rather than blurring the element's own contents.
+     *
+     * The panel needs a translucent background for the effect to be visible.
+     */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-.project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+/* =================================================
+   Panel corner decorations
+   ================================================= */
+
+.panel::before,
+.panel::after {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--accent);
+    content: "";
+    opacity: 0.9;
 }
 
-.card-img-top {
-	height: 234px;
-    object-fit: cover;
+.panel::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
 }
 
-/* Navigation */
-.navbar {
-	font-family: 'Raleway';
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.panel::after {
+    right: -1px;
+    bottom: -1px;
+    border-left: none;
+    border-top: none;
 }
 
-.navbar-nav .nav-link {
-    margin: 0 10px;
-    transition: color 0.3s;
+
+/* =================================================
+   Tabs
+   ================================================= */
+
+.tabs {
+    display: flex;
+    flex: 0 0 auto;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--line);
 }
 
-.navbar-nav .nav-link:hover {
-    color: #667eea !important;
+.tab {
+    padding: 0.6em 1.3em;
+    color: var(--dim);
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    cursor: pointer;
 }
 
-.glass-box {
-	background: rgba(255, 255, 255, 0.3);
-	backdrop-filter: blur(8px);
-	-webkit-backdrop-filter: blur(8px); /* Safari */
-	border-radius: 16px;
-	padding: 1.25rem 1.5rem;
-	border: 1px solid rgba(255, 255, 255, 0.25);
-	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+.tab.active {
+    background: var(--accent);
+    color: #000;
 }
 
-.glass-box.dark {
-	background: rgba(0, 0, 0, 0.3);
-	color: #fff;
+.tab:hover:not(.active) {
+    color: var(--fg);
 }
 
-.hidden {
-	display: none;
+
+/* =================================================
+   Content / Pages
+   ================================================= */
+
+/* .content only lays out the active page.
+ *
+ * It intentionally does not scroll. Individual .page/.pane elements own
+ * their scrolling so that split layouts can have independent scroll areas.
+ */
+.content {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.page {
+    height: 100%;
+}
+
+.page.split {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    min-height: 0;
+
+    /* Prevent the grid row from growing to fit tall pane content.
+     * Without this, the pane's content can force the overall layout
+     * beyond the intended height.
+     */
+}
+
+.pane-info {
+    border-right: 1px solid var(--line);
+}
+
+
+/* =================================================
+   Scrollable panes
+   ================================================= */
+
+/* Used both by:
+ *   1. A normal page that acts as its own scroll container.
+ *   2. A .pane inside a .page.split layout.
+ *
+ * Each pane therefore gets an independent vertical scrollbar.
+ */
+.scrollpane {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    --pane-pad: clamp(1.2rem, 3vw, 3rem);
+    padding: var(--pane-pad);
+
+    /* scrollbar-width and scrollbar-color are Firefox-specific
+     * scrollbar customization properties.
+     *
+     * The ::-webkit-scrollbar rules below provide the equivalent
+     * styling for WebKit/Blink browsers.
+     */
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+}
+
+.scrollpane::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollpane::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollpane::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 0;
+}
+
+.scrollpane::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+
+/* =================================================
+   Typography inside scroll panes
+   ================================================= */
+
+.scrollpane h1 {
+    margin: 0 0 0.3em;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.scrollpane .tagline {
+    margin: 0 0 1.4em;
+    color: var(--dim);
+}
+
+/*
+* These were quietly beating Bootstrap's classes, :where() makes these zero-specificity
+* so bootstrap or custom classes override more naturally
+*/
+:where(.scrollpane) p {
+    max-width: 60ch;
+    line-height: 1.6;
+    color: var(--fg);
+}
+:where(.scrollpane) a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent);
+}
+
+.setting-group{border-top:1px solid var(--line);padding:1em 0 .4em;margin-top:1em;}
+.setting-group h2{margin:0 0 .6em;font-size:.85em;font-weight:400;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;}
+.setting{position:relative;display:grid;grid-template-columns:12em 1fr 4.5em;align-items:center;gap:1em;padding:.35em 0;}
+.setting input[type=range]{width:100%;accent-color:var(--accent);}
+.setting input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:1.2em;margin:0;background:transparent;cursor:pointer;
+}
+.setting input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--line);}
+.setting input[type=range]::-moz-range-track{height:2px;background:var(--line);}
+.setting input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:10px;height:1.1em;
+  margin-top:calc((2px - 1.1em) / 2);   /* centers thumb on the track (webkit only) */
+  background:var(--accent);border:none;border-radius:0;
+}
+.setting input[type=range]::-moz-range-thumb{
+  width:10px;height:1.1em;background:var(--accent);border:none;border-radius:0;
+}
+.setting input[type=range]:hover::-webkit-slider-thumb{background:var(--fg);}
+.setting input[type=range]:hover::-moz-range-thumb{background:var(--fg);}
+.setting input[type=range]:focus-visible{outline:1px dashed var(--accent);outline-offset:3px;}
+.setting input[type=range]:disabled{cursor:not-allowed;}
+
+.setting-value{text-align:right;color:var(--dim);}
+.setting.disabled{opacity:.4;}
+.setting.toggle{grid-template-columns:auto 1fr;cursor:pointer;}
+.setting.toggle input{position:absolute;opacity:0;pointer-events:none;}
+.setting .box::before{content:'[ ]';color:var(--dim);}
+.setting.toggle input:checked + .box::before{content:'[x]';color:var(--accent);}
+.setting.toggle input:focus-visible + .box::before{outline:1px dashed var(--accent);}
+.resetbtn{background:none;border:1px solid var(--line);color:var(--dim);font:inherit;padding:.5em 1.2em;cursor:pointer;margin-top:1.4em;}
+.resetbtn:hover{color:var(--accent);border-color:var(--accent);}
+
+
+/* =================================================
+   Links
+   ================================================= */
+
+.links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2em;
+    margin-top: 1.6em;
+    color: var(--dim);
+}
+.links:hover {
+    color: var(--accent);
+}
+
+.links a {
+    color: var(--dim);
+    border-bottom: 1px dashed var(--line);
+}
+
+
+/* =================================================
+   "More" scroll indicator
+   ================================================= */
+
+/* The indicator is positioned relative to .scrollpane.
+ *
+ * It sits over the bottom of the scrolling content and fades into the
+ * panel background. JavaScript can toggle the .visible class.
+ */
+.more-indicator {
+  position: sticky;
+  bottom: calc(var(--pane-pad) * -1);
+
+  height: 0;
+  margin-inline: calc(var(--pane-pad) * -1);
+
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.more-indicator::after {
+  content: '-- more --';
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  padding: 0.4em 0;
+  background: linear-gradient(
+    transparent,
+    var(--panel) 60%
+  );
+
+  color: var(--dim);
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.more-indicator.visible {
+    opacity: 1;
+}
+
+/* =================================================
+ * Icons
+ * ================================================= */
+
+.tui-icon-link {
+  --icon-size: 28px;
+  display: inline-block;
+  width: 44px;                      /* touch-target size */
+  height: 44px;
+  background-color: var(--dim);
+  -webkit-mask: var(--icon) center / var(--icon-size) no-repeat;
+          mask: var(--icon) center / var(--icon-size) no-repeat;
+  image-rendering: pixelated;
+  transition: background-color 0.12s;
+}
+.tui-icon-link:hover,
+.tui-icon-link:focus-visible { background-color: var(--accent); outline: none; }
+
+
+/* =================================================
+   Cards
+   ================================================= */
+
+/* =================================================
+   TUI theme layer for Bootstrap components.
+   Opt-in via .tui-* modifier classes; plain Bootstrap components
+   elsewhere on the site are untouched. Compound selectors
+   (.card.tui-card) beat Bootstrap's variant classes regardless of
+   stylesheet order.
+   ================================================= */
+
+/* ---- card ---- */
+.card.tui-card {
+  --bs-body-color: var(--fg);
+  --bs-card-color: var(--fg);
+  --bs-secondary-color: var(--dim);   /* drives .text-body-secondary inside the card */
+  --bs-border-color: var(--line);     /* drives .border-bottom etc. inside the card */
+  --bs-card-border-color: var(--line);
+  --bs-card-bg: rgba(0, 0, 0, 0.22);
+  --bs-card-border-radius: 0;
+  --bs-card-inner-border-radius: 0;
+  --bs-card-spacer-x: 1.2rem;
+  --bs-card-spacer-y: 1rem;
+  transition: border-color 0.12s;
+}
+
+/* Corner brackets, same motif as the panel. .card is already position:relative */
+.card.tui-card::before,
+.card.tui-card::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--accent);
+  opacity: 0;
+  transition: opacity 0.12s;
+  pointer-events: none;
+}
+.card.tui-card::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.card.tui-card::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.tui-card .card-title::before { content: '> '; color: var(--dim); }
+
+/* Gated so touch devices don't get "stuck" highlighted cards */
+@media (hover: hover) {
+  .card.tui-card:hover { --bs-card-border-color: var(--accent); }
+  .card.tui-card:hover::before,
+  .card.tui-card:hover::after { opacity: 0.9; }
+  .card.tui-card:hover .card-title::before { color: var(--accent); }
+}
+
+/* ---- tags: [like-this] ---- */
+.badge.tui-badge {
+  --bs-badge-padding-x: 0;
+  --bs-badge-padding-y: 0;
+  --bs-badge-font-size: 0.8em;
+  --bs-badge-font-weight: 400;
+  --bs-badge-color: var(--dim);
+  --bs-badge-border-radius: 0;
+}
+.tui-badge::before { content: '['; }
+.tui-badge::after  { content: ']'; }
+
+/* ---- links: [ like this ], inverting on hover like an active tab ---- */
+.btn.tui-btn {
+  --bs-btn-padding-x: 0;
+  --bs-btn-padding-y: 0.15rem;
+  --bs-btn-font-size: 0.85rem;
+  --bs-btn-font-weight: 400;
+  --bs-btn-border-width: 0;
+  --bs-btn-border-radius: 0;
+  --bs-btn-color: var(--dim);
+  --bs-btn-bg: transparent;
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: var(--accent);
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: var(--accent);
+  --bs-btn-focus-box-shadow: none;    /* Bootstrap's focus-visible already applies the hover colors */
+}
+.btn.tui-btn.tui-btn-accent { --bs-btn-color: var(--accent); }
+.tui-btn::before { content: '[ '; }
+.tui-btn::after  { content: ' ]'; }
+
+/* ---- load-failure message ---- */
+.alert.tui-alert {
+  --bs-alert-color: var(--bs-danger);          /* Bootstrap's own root variable */
+  --bs-alert-bg: transparent;
+  --bs-alert-border-color: var(--bs-danger);
+  --bs-alert-border-radius: 0;
+  --bs-alert-margin-bottom: 0;
+}
+.tui-alert::before { content: 'error: '; font-weight: 600; }
+
+/* =================================================
+   Status bar
+   ================================================= */
+
+.statusbar {
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: space-between;
+    padding: 0.5em 1em;
+    border-top: 1px solid var(--line);
+    color: var(--dim);
+    font-size: 0.8em;
+}
+
+.themebtn {
+    padding: 0;
+    background: none;
+    border: none;
+    color: var(--dim);
+    font: inherit;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+}
+
+.themebtn:hover {
+    color: var(--accent);
+}
+
+.themebtn::before { content: '['; }
+.themebtn::after  { content: ']'; }
+
+/* =================================================
+ * CRT / scanline effect
+ * ================================================= */
+
+.scanlines {
+    position: fixed;
+    inset: 0;
+
+    /* mix-blend-mode: overlay blends this layer with whatever is underneath,
+     * producing the CRT-like scanline effect without obscuring the page.
+     */
+    mix-blend-mode: overlay;
+    background: repeating-linear-gradient(
+        /* The two lengths after each color specify the start/end positions
+         * of that color stop. This creates hard-edged stripes rather than
+         * a smooth gradient.
+         */
+        rgba(255, 255, 255, 0) 0 2px,
+        rgba(255, 255, 255, 0.06) 2px 3px
+    );
+
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* =================================================
+ * Sprites
+ * ================================================= */
+.sprite-layer{
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+.sprite{
+    position:sticky;
+    top:0;
+    left:0;
+    background-repeat:no-repeat;
+    image-rendering:pixelated;
+    will-change:transform;
+    transform-origin: 0 0;
+}
+.peeker{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1;
+    white-space: pre;
+    transform-origin: center center;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* =================================================
+ * Mobile
+ * ================================================= */
+
+/* On small screens the entire page becomes one scrolling document.
+ * This avoids nested scroll containers, which can make touch scrolling
+ * awkward when the user moves between independently scrollable panes.
+ */
+@media (max-width: 820px) {
+    html, body {
+        overflow-y: auto;
+    }
+
+    .frame {
+        height: auto;
+        min-height: 100dvh;
+        padding: 0;
+    }
+
+    .panel {
+        min-height: 100dvh;
+        border: none;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+    }
+
+    .panel::before,
+    .panel::after {
+        display: none;
+    }
+
+    .tabs {
+        position: sticky;
+        top: 0;
+        background: rgba(8, 8, 10, 0.75);
+        z-index: 1;
+    }
+
+    .content {
+        height: auto;
+        overflow: visible;
+    }
+
+    .page {
+        height: auto;
+    }
+
+    .page.split {
+        grid-template-columns: 1fr;
+    }
+
+    .pane-info {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .scrollpane {
+        height: auto;
+        overflow-y: visible;
+        padding: 1.4rem;
+    }
+
+    .more-indicator {
+        display: none;
+    }
+
+    .statusbar {
+        position: sticky;
+        bottom: 0;
+        background: rgba(8, 8, 10, 0.75);
+    }
+
+    .desktop-only{display:none;}
+    .setting:not(.toggle){grid-template-columns:1fr auto;}
+    .setting:not(.toggle) .setting-label{grid-area:1/1;}
+    .setting:not(.toggle) .setting-value{grid-area:1/2;}
+    .setting:not(.toggle) input{grid-area:2/1/3/3;}
 }

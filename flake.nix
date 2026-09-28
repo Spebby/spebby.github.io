@@ -21,6 +21,7 @@
       system:
       let
         pkgs = import nixpkgs { inherit system; };
+        serveSite = pkgs.callPackage ./serve-site.nix { inherit pkgs; };
       in
       {
         checks = {
@@ -49,20 +50,38 @@
           };
         };
 
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            git
-            ruby_3_3
-            rubyPackages_3_3.jekyll
-            rubyPackages_3_3.jekyll-redirect-from
-            rubyPackages_3_3.kramdown-parser-gfm
-          ];
+        devShells = {
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              git
+              ruby_3_3
+              rubyPackages_3_3.jekyll
+              rubyPackages_3_3.jekyll-redirect-from
+              rubyPackages_3_3.kramdown-parser-gfm
+            ];
 
-          shellHook = ''
-            		echo "Dev Env loaded."
-            		${self.checks.${system}.pre-commit-check.shellHook}
-          '';
+            shellHook = ''
+              echo "Dev Env loaded."
+              ${self.checks.${system}.pre-commit-check.shellHook}
+            '';
+          };
         };
+
+        apps =
+          let
+            default = {
+              type = "app";
+              program = pkgs.lib.getExe serveSite;
+            };
+            serve-site = {
+              type = "app";
+              program = pkgs.lib.getExe serveSite;
+            };
+          in
+          {
+            inherit default serve-site;
+            serve = serve-site;
+          };
       }
     );
 }
