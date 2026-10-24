@@ -1,0 +1,112 @@
+/* MAIN SITE ONLY. Scrollable panes, their typography, and the "more" indicator. */
+
+/* Used both by:
+ *   1. A normal page that acts as its own scroll container.
+ *   2. A .pane inside a .page.split layout.
+ *
+ * Each pane therefore gets an independent vertical scrollbar.
+ */
+.scrollpane {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    --pane-pad: clamp(1.2rem, 3vw, 3rem);
+    padding: var(--pane-pad);
+
+    /* scrollbar-width and scrollbar-color are Firefox-specific
+     * scrollbar customization properties.
+     *
+     * The ::-webkit-scrollbar rules below provide the equivalent
+     * styling for WebKit/Blink browsers.
+     */
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+}
+
+.scrollpane::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollpane::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollpane::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 0;
+}
+
+.scrollpane::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+.scrollpane h1 {
+    margin: 0 0 0.3em;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.scrollpane .tagline {
+    margin: 0 0 1.4em;
+    color: var(--dim);
+}
+
+/*
+* These were quietly beating Bootstrap's classes, :where() makes these zero-specificity
+* so bootstrap or custom classes override more naturally
+*/
+:where(.scrollpane) p {
+    max-width: 60ch;
+    line-height: 1.6;
+    color: var(--fg);
+}
+:where(.scrollpane) a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent);
+}
+
+/* The indicator is positioned relative to .scrollpane.
+ *
+ * It sits over the bottom of the scrolling content and fades into the
+ * panel background. JavaScript can toggle the .visible class.
+ */
+.more-indicator {
+  position: sticky;
+  bottom: calc(var(--pane-pad) * -1);
+
+  height: 0;
+  margin-inline: calc(var(--pane-pad) * -1);
+
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.more-indicator::after {
+  content: '-- more --';
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  padding: 0.4em 0;
+  background: linear-gradient(
+    transparent,
+    var(--panel) 60%
+  );
+
+  color: var(--dim);
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.more-indicator.visible {
+    opacity: 1;
+}
+

@@ -1,0 +1,29 @@
+/* SHARED. Corner brackets. Applies to .panel, and to any positioned element with .tui-corners. */
+.panel::before,
+.panel::after,
+.tui-corners::before,
+.tui-corners::after {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--accent);
+    content: "";
+    opacity: 0.9;
+}
+
+.panel::before,
+.tui-corners::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.panel::after,
+.tui-corners::after {
+    right: -1px;
+    bottom: -1px;
+    border-left: none;
+    border-top: none;
+}
+

@@ -1,0 +1,97 @@
+/* MAIN SITE ONLY. Frame, translucent panel, tabs, pages, split layout. */
+.frame {
+    display: flex;
+    height: 100dvh;
+
+    /* env() reads browser-provided environment variables.
+     *
+     * safe-area-inset-* accounts for things such as the iPhone notch
+     * and home indicator. The 0px value is the fallback.
+     *
+     * max() chooses whichever value is larger: the viewport-relative
+     * padding or the device safe-area inset.
+     */
+    padding:
+        max(4vh, env(safe-area-inset-top, 0px))
+        max(4vw, env(safe-area-inset-right, 0px))
+        max(4vh, env(safe-area-inset-bottom, 0px))
+        max(4vw, env(safe-area-inset-left, 0px));
+
+    z-index: 1;
+}
+
+.panel {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    background: var(--panel);
+    border: 1px solid var(--line);
+
+    /*
+     * backdrop-filter applies the blur to whatever is behind the element,
+     * rather than blurring the element's own contents.
+     *
+     * The panel needs a translucent background for the effect to be visible.
+     */
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+}
+
+.tabs {
+    display: flex;
+    flex: 0 0 auto;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--line);
+}
+
+.tab {
+    padding: 0.6em 1.3em;
+    color: var(--dim);
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+}
+
+.tab.active {
+    background: var(--accent);
+    color: #000;
+}
+
+.tab:hover:not(.active) {
+    color: var(--fg);
+}
+
+/* .content only lays out the active page.
+ *
+ * It intentionally does not scroll. Individual .page/.pane elements own
+ * their scrolling so that split layouts can have independent scroll areas.
+ */
+.content {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.page {
+    height: 100%;
+}
+
+.page.split {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    min-height: 0;
+
+    /* Prevent the grid row from growing to fit tall pane content.
+     * Without this, the pane's content can force the overall layout
+     * beyond the intended height.
+     */
+}
+
+.pane-info {
+    border-right: 1px solid var(--line);
+}
+

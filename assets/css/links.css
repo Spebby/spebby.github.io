@@ -1,0 +1,31 @@
+/* MAIN SITE ONLY. Link row and icon links. */
+.links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2em;
+    margin-top: 1.6em;
+    color: var(--dim);
+}
+.links:hover {
+    color: var(--accent);
+}
+
+.links a {
+    color: var(--dim);
+    border-bottom: 1px dashed var(--line);
+}
+
+.tui-icon-link {
+  --icon-size: 28px;
+  display: inline-block;
+  width: 44px;                      /* touch-target size */
+  height: 44px;
+  background-color: var(--dim);
+  -webkit-mask: var(--icon) center / var(--icon-size) no-repeat;
+          mask: var(--icon) center / var(--icon-size) no-repeat;
+  image-rendering: pixelated;
+  transition: background-color 0.12s;
+}
+.tui-icon-link:hover,
+.tui-icon-link:focus-visible { background-color: var(--accent); outline: none; }
+

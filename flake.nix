@@ -3,8 +3,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -14,7 +14,7 @@
       self,
       nixpkgs,
       flake-utils,
-      pre-commit-hooks,
+      git-hooks,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -25,7 +25,7 @@
       in
       {
         checks = {
-          pre-commit-check = pre-commit-hooks.lib.${system}.run {
+          git-check = git-hooks.lib.${system}.run {
             src = ./.;
             excludes = [
               ".*/submodules/.*"
@@ -33,7 +33,7 @@
             ];
             hooks = {
               flake-checker.enable = true;
-              nixfmt-rfc-style = {
+              nixfmt = {
                 enable = true;
                 settings.width = 100;
               };
@@ -43,7 +43,6 @@
               };
               deadnix.enable = true;
               nil.enable = true;
-              shellcheck.enable = true;
               shfmt.enable = true;
               typos.enable = true;
             };
@@ -54,15 +53,15 @@
           default = pkgs.mkShell {
             packages = with pkgs; [
               git
-              ruby_3_3
-              rubyPackages_3_3.jekyll
-              rubyPackages_3_3.jekyll-redirect-from
-              rubyPackages_3_3.kramdown-parser-gfm
+              ruby_4_0
+              rubyPackages_4_0.jekyll
+              rubyPackages_4_0.jekyll-redirect-from
+              rubyPackages_4_0.kramdown-parser-gfm
             ];
 
             shellHook = ''
               echo "Dev Env loaded."
-              ${self.checks.${system}.pre-commit-check.shellHook}
+              ${self.checks.${system}.git-check.shellHook}
             '';
           };
         };

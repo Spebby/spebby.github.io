@@ -1,0 +1,27 @@
+/* MAIN SITE ONLY. Shader backdrop. The bare `canvas` selector would break MapLibre's canvas
+   (pointer-events: none), which is why this file is not shared. */
+body.shader-fallback {
+    background: radial-gradient(
+        circle at 30% 20%,
+        #1c1a22,
+        #08080a 70%
+    );
+}
+
+canvas {
+    position: fixed;
+    inset: 0;
+
+    /* dvh = dynamic viewport height.
+     * Unlike vh, dvh accounts for browser UI that can appear/disappear
+     * on mobile devices. This helps prevent the canvas from being too
+     * tall or short when the mobile browser chrome changes size.
+     */
+    width: 100vw;
+    height: 100dvh;
+
+    display: block;
+    pointer-events: none;
+    z-index: -1;
+}
+

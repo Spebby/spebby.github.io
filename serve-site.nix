@@ -1,6 +1,6 @@
 { pkgs }:
 let
-  gems = pkgs.ruby_3_3.withPackages (
+  gems = pkgs.ruby_4_0.withPackages (
     ps: with ps; [
       jekyll
       jekyll-redirect-from

@@ -1,0 +1,30 @@
+/* MAIN SITE ONLY. Sprites and peekers. */
+.sprite-layer{
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+.sprite{
+    position:sticky;
+    top:0;
+    left:0;
+    background-repeat:no-repeat;
+    image-rendering:pixelated;
+    will-change:transform;
+    transform-origin: 0 0;
+}
+.peeker{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1;
+    white-space: pre;
+    transform-origin: center center;
+    pointer-events: none;
+    user-select: none;
+}
+

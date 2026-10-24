@@ -3,7 +3,8 @@
 (function () {
   "use strict";
 
-  var THEME_FILE = window.location.origin + "/assets/data/themes.txt";
+  var THEME_FILE =
+    window.THEME_FILE_URL || window.location.origin + "/assets/data/themes.txt";
   var STORAGE_KEY = "tui-theme";
 
   var themes = [];
@@ -99,11 +100,16 @@
     var root = document.documentElement.style;
 
     for (var i = 0; i <= 15; i++) {
-      var hex = i.toString(16).toUpperCase();
-      var key = "base" + (i < 10 ? "0" + i : hex);
-      var value = theme[key.toLowerCase()];
+      var key = "base" + i.toString(16).padStart(2, "0");
+      var value = theme[key];
 
-      root.setProperty("--" + key, value);
+      if (value) {
+        root.setProperty(
+          "--" +
+            key.replace(/^base/, "base").toUpperCase().replace(/^BASE/, "base"),
+          value,
+        );
+      }
     }
 
     var button = document.getElementById("themeBtn");

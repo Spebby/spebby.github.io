@@ -1,0 +1,88 @@
+/* MAIN SITE ONLY (needs Bootstrap). TUI theme layer for Bootstrap components.
+   Opt-in via .tui-* modifier classes; plain Bootstrap components
+   elsewhere on the site are untouched. Compound selectors
+   (.card.tui-card) beat Bootstrap's variant classes regardless of
+   stylesheet order. */
+
+/* ---- card ---- */
+.card.tui-card {
+  --bs-body-color: var(--fg);
+  --bs-card-color: var(--fg);
+  --bs-secondary-color: var(--dim);   /* drives .text-body-secondary inside the card */
+  --bs-border-color: var(--line);     /* drives .border-bottom etc. inside the card */
+  --bs-card-border-color: var(--line);
+  --bs-card-bg: rgba(0, 0, 0, 0.22);
+  --bs-card-border-radius: 0;
+  --bs-card-inner-border-radius: 0;
+  --bs-card-spacer-x: 1.2rem;
+  --bs-card-spacer-y: 1rem;
+  transition: border-color 0.12s;
+}
+
+/* Corner brackets, same motif as the panel. .card is already position:relative */
+.card.tui-card::before,
+.card.tui-card::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--accent);
+  opacity: 0;
+  transition: opacity 0.12s;
+  pointer-events: none;
+}
+.card.tui-card::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.card.tui-card::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.tui-card .card-title::before { content: '> '; color: var(--dim); }
+
+/* Gated so touch devices don't get "stuck" highlighted cards */
+@media (hover: hover) {
+  .card.tui-card:hover { --bs-card-border-color: var(--accent); }
+  .card.tui-card:hover::before,
+  .card.tui-card:hover::after { opacity: 0.9; }
+  .card.tui-card:hover .card-title::before { color: var(--accent); }
+}
+
+/* ---- tags: [like-this] ---- */
+.badge.tui-badge {
+  --bs-badge-padding-x: 0;
+  --bs-badge-padding-y: 0;
+  --bs-badge-font-size: 0.8em;
+  --bs-badge-font-weight: 400;
+  --bs-badge-color: var(--dim);
+  --bs-badge-border-radius: 0;
+}
+.tui-badge::before { content: '['; }
+.tui-badge::after  { content: ']'; }
+
+/* ---- links: [ like this ], inverting on hover like an active tab ---- */
+.btn.tui-btn {
+  --bs-btn-padding-x: 0;
+  --bs-btn-padding-y: 0.15rem;
+  --bs-btn-font-size: 0.85rem;
+  --bs-btn-font-weight: 400;
+  --bs-btn-border-width: 0;
+  --bs-btn-border-radius: 0;
+  --bs-btn-color: var(--dim);
+  --bs-btn-bg: transparent;
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: var(--accent);
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: var(--accent);
+  --bs-btn-focus-box-shadow: none;    /* Bootstrap's focus-visible already applies the hover colors */
+}
+.btn.tui-btn.tui-btn-accent { --bs-btn-color: var(--accent); }
+.tui-btn::before { content: '[ '; }
+.tui-btn::after  { content: ' ]'; }
+
+/* ---- load-failure message ---- */
+.alert.tui-alert {
+  --bs-alert-color: var(--bs-danger);          /* Bootstrap's own root variable */
+  --bs-alert-bg: transparent;
+  --bs-alert-border-color: var(--bs-danger);
+  --bs-alert-border-radius: 0;
+  --bs-alert-margin-bottom: 0;
+}
+.tui-alert::before { content: 'error: '; font-weight: 600; }
+

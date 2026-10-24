@@ -1,0 +1,23 @@
+/* SHARED (optional). CRT / scanline overlay. Add <div class="scanlines"></div> to use it. */
+.scanlines {
+    position: fixed;
+    inset: 0;
+
+    /* mix-blend-mode: overlay blends this layer with whatever is underneath,
+     * producing the CRT-like scanline effect without obscuring the page.
+     */
+    mix-blend-mode: overlay;
+    background: repeating-linear-gradient(
+        /* The two lengths after each color specify the start/end positions
+         * of that color stop. This creates hard-edged stripes rather than
+         * a smooth gradient.
+         */
+        rgba(255, 255, 255, 0) 0 2px,
+        rgba(255, 255, 255, 0.06) 2px 3px
+    );
+
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 2;
+}
+

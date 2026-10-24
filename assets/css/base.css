@@ -1,0 +1,23 @@
+/* SHARED. Reset, page colors, font. */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: var(--backdrop);
+    color: var(--fg);
+    font-family:
+        "JetBrains Mono",
+        "Fira Code",
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Consolas,
+        monospace;
+    font-size: 15px;
+}
+

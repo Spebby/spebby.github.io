@@ -1,0 +1,40 @@
+/* SHARED. Palette and semantic colors. --base00..--base0F are set by the theme manager. */
+:root {
+    --transparency: 65%;
+    --blur: 10px;
+    --backdrop: #08080a;   /* page background behind the translucent panel */
+
+    /* Base16 */
+    --base00: #e9e6df;
+    --base01: #dedad0;
+    --base02: #c9c4b8;
+    --base03: #b9b4a8;
+    --base04: #8f8a80;
+    --base05: #e9e6df;
+    --base06: #f2efe9;
+    --base07: #faf8f4;
+    --base08: #c94f4f;
+    --base09: #c4773a;
+    --base0A: #b08b3e;
+    --base0B: #789b55;
+    --base0C: #5d9b9b;
+    --base0D: #6b83a6;
+    --base0E: #8b6fa8;
+    --base0F: #9a5c5c;
+
+    /* semantic application colors */
+    --fg: var(--base05);
+    --dim: var(--base04);
+    --accent: var(--base0D);
+    --panel: color-mix(in srgb, var(--base00) var(--transparency), transparent);
+    --line: color-mix(in srgb, var(--accent) var(--transparency), transparent);
+
+    --red: var(--base08);
+    --orange: var(--base09);
+    --yellow: var(--base0A);
+    --green: var(--base0B);
+    --cyan: var(--base0C);
+    --blue: var(--base0D);
+    --purple: var(--base0E);
+}
+
