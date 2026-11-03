@@ -26,10 +26,7 @@ function escapeHtml(text: string): string {
   return text.replace(/[&<>"']/g, (char) => ESCAPES[char] ?? char);
 }
 
-function optionalString(
-  record: Record<string, unknown>,
-  key: string,
-): string | undefined {
+function optionalString(record: Record<string, unknown>, key: string): string | undefined {
   const value = record[key];
   return typeof value === "string" ? value : undefined;
 }
@@ -63,10 +60,7 @@ function resolveUrl(path: string): string {
   const base = document.body.dataset.baseUrl;
   if (!base) throw new Error("Missing data-base-url");
 
-  return new URL(
-    path.replace(/^\/+/, ""),
-    base.endsWith("/") ? base : `${base}/`,
-  ).href;
+  return new URL(path.replace(/^\/+/, ""), base.endsWith("/") ? base : `${base}/`).href;
 }
 
 function mediaHtml(project: Project): string {
@@ -93,11 +87,7 @@ function mediaHtml(project: Project): string {
   return "";
 }
 
-function buttonHtml(
-  url: string | undefined,
-  label: string,
-  accent: boolean,
-): string {
+function buttonHtml(url: string | undefined, label: string, accent: boolean): string {
   if (!url) return "";
   const classes = accent ? "btn tui-btn tui-btn-accent" : "btn tui-btn";
   return `<a href="${escapeHtml(url)}" class="${classes}" target="_blank">${label}</a>`;
@@ -105,9 +95,7 @@ function buttonHtml(
 
 function cardHtml(project: Project): string {
   const tags = project.tags
-    .map(
-      (tag) => `<span class="badge tui-badge me-2">${escapeHtml(tag)}</span>`,
-    )
+    .map((tag) => `<span class="badge tui-badge me-2">${escapeHtml(tag)}</span>`)
     .join("");
 
   return `
@@ -134,16 +122,14 @@ async function loadInto(container: HTMLElement): Promise<void> {
 
   try {
     const response = await fetch(url);
-    if (!response.ok)
-      throw new Error(`Failed to load projects (${response.status})`);
+    if (!response.ok) throw new Error(`Failed to load projects (${response.status})`);
 
     const data: unknown = await response.json();
     const list =
       typeof data === "object" && data !== null
         ? (data as { projects?: unknown }).projects
         : undefined;
-    if (!Array.isArray(list))
-      throw new Error("Expected a { projects: [...] } object");
+    if (!Array.isArray(list)) throw new Error("Expected a { projects: [...] } object");
 
     container.replaceChildren();
     for (const raw of list) {
@@ -165,8 +151,6 @@ async function loadInto(container: HTMLElement): Promise<void> {
 }
 
 export async function loadProjects(): Promise<void> {
-  const containers = Array.from(
-    document.querySelectorAll<HTMLElement>("[data-projects]"),
-  );
+  const containers = Array.from(document.querySelectorAll<HTMLElement>("[data-projects]"));
   await Promise.all(containers.map(loadInto));
 }

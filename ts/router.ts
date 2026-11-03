@@ -3,9 +3,7 @@
 import { updateScrollpane } from "./scroll-indicator";
 
 export function initRouter(): void {
-  const tabs = Array.from(
-    document.querySelectorAll<HTMLElement>(".tab[data-page]"),
-  );
+  const tabs = Array.from(document.querySelectorAll<HTMLElement>(".tab[data-page]"));
   const pages = Array.from(document.querySelectorAll<HTMLElement>(".page"));
   const defaultPage = tabs[0]?.dataset.page ?? pages[0]?.dataset.page;
 
@@ -13,9 +11,7 @@ export function initRouter(): void {
 
   function route(): void {
     const wanted = (location.hash || `#${defaultPage}`).slice(1);
-    const page = pages.some((p) => p.dataset.page === wanted)
-      ? wanted
-      : defaultPage;
+    const page = pages.some((p) => p.dataset.page === wanted) ? wanted : defaultPage;
 
     let activePage: HTMLElement | undefined;
     for (const p of pages) {

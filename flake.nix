@@ -2,7 +2,7 @@
   description = "spebby.net website (Zola)";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     flake-utils.url = "github:numtide/flake-utils";
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
@@ -164,19 +164,21 @@
           '';
         };
 
-        gitHooks = git-hooks.lib.${system}.run {
-          src = ./.;
-          excludes = [ ];
-          hooks = {
-            flake-checker.enable = true;
-            nixfmt = {
-              enable = true;
-              settings.width = 100;
+        gitHooks = pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux (
+          git-hooks.lib.${system}.run {
+            src = ./.;
+            excludes = [ ];
+            hooks = {
+              flake-checker.enable = true;
+              nixfmt = {
+                enable = true;
+                settings.width = 100;
+              };
+              shfmt.enable = true;
+              typos.enable = true;
             };
-            shfmt.enable = true;
-            typos.enable = true;
-          };
-        };
+          }
+        );
       in
       {
         packages = {
@@ -279,12 +281,11 @@
             pkgs.zizmor
           ] "zizmor --pedantic --min-severity medium --no-online-audits .";
         }
-        // pkgs.lib.optionalAttrs pkgs.stdenv.isLinux { git-check = gitHooks; };
+        // pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux { git-check = gitHooks; };
 
         formatter = pkgs.nixfmt;
 
         devShells.default = pkgs.mkShell {
-          inherit gitHooks;
           packages = [
             dev
             pkgs.actionlint
@@ -299,10 +300,10 @@
             pkgs.zizmor
             pkgs.zola
           ]
-          ++ gitHooks.enabledPackages;
+          ++ (gitHooks.enabledPackages or [ ]);
 
           shellHook = ''
-            ${gitHooks.shellHook}
+            ${gitHooks.shellHook or ""}
             nix run .#help
           '';
         };
