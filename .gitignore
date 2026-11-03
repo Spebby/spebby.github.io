@@ -1,4 +1,6 @@
+public/
+result
+.direnv/
+static/js/
 _site/
 .pre-commit-config.yaml
-.nix-profile/
-.direnv/

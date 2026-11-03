@@ -1,0 +1,17 @@
+{%- set dest = page.extra.to | default(value=get_url(path="/") ~ "#" ~ page.slug) -%}
+{%- set base = config.base_url -%}
+{%- set target = base ~ dest -%}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting&hellip;</title>
+  <link rel="canonical" href="{{ target | safe }}">
+  <meta http-equiv="refresh" content="0; url={{ target | safe }}">
+  <meta name="robots" content="noindex">
+  <script>window.location.replace({{ target | json_encode() | safe }});</script>
+</head>
+<body>
+  <p><a href="{{ target | safe }}">Continue</a></p>
+</body>
+</html>

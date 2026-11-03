@@ -1,2 +1,2 @@
 [files]
-extend-exclude = ["assets/css/*.css"]
+extend-exclude = ["flake.lock", "public/", "static/js/", "static/css/*.css"]

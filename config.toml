@@ -1,0 +1,29 @@
+base_url = "https://spebby.net"
+title = "Thom's Website"
+description = "The portfolio website of Thom 'Spebby' Mott. You can view my projects, and learn a bit about me here :)"
+default_language = "en"
+
+[extra]
+# Image used for og:image / twitter:image, relative to the site root.
+default_image = "favicon.ico"
+
+# Shown in the status bar.
+statusbar = "thom@spebby.net"
+
+# Stylesheets in static/css, in load order. Keep tui-bootstrap last unless you
+# also want to change how it interacts with Bootstrap.
+stylesheets = [
+  "base",
+  "corners",
+  "layout",
+  "links",
+  "mobile",
+  "scanlines",
+  "scrollplane",
+  "settings",
+  "shaders",
+  "sprites",
+  "statusbar",
+  "theme",
+  "tui-bootstrap",
+]

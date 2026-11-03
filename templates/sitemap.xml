@@ -1,0 +1,7 @@
+{#- One real page; every other URL is a redirect shim and should not be indexed. -#}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{{ get_url(path="/", trailing_slash=true) }}</loc>
+  </url>
+</urlset>

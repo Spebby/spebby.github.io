@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block meta %}
+  {% set description = section.description | default(value=config.description) %}
+  <title>{{ section.title }}</title>
+  <meta property="og:title" content="{{ config.title }} - {{ section.title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:image" content="{{ config.base_url }}/{{ config.extra.default_image }}">
+  <meta property="og:url" content="{{ current_url }}">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ config.title }} - {{ section.title }}">
+  <meta name="twitter:description" content="{{ description }}">
+  <meta name="twitter:image" content="{{ get_url(path=config.extra.default_image) }}">
+{% endblock %}
+
+{% block body %}
+<div class="scanlines"></div>
+<div class="frame">
+  <div class="panel">
+    <div class="tabs">
+      {% for tab in section.extra.tabs %}
+      <div class="tab" data-page="{{ tab.slug }}">~/{{ tab.slug }}</div>
+      {% endfor %}
+    </div>
+    <div class="content">
+      <div class="sprite-layer" aria-hidden="true"></div>
+      {% for tab in section.extra.tabs %}
+        {% if tab.slug == "home" %}
+          {% set pane = section %}
+        {% else %}
+          {% set pane = get_page(path=tab.slug ~ ".md") %}
+        {% endif %}
+        {% set slug = tab.slug %}
+        {% include "partials/pane.html" %}
+      {% endfor %}
+    </div>
+    <div class="statusbar">
+      <span>{{ config.extra.statusbar }}</span>
+      <span class="right">
+        <button id="themeBtn" class="themebtn" type="button"></button>
+        <span id="clock">--:--:--</span>
+      </span>
+    </div>
+  </div>
+</div>
+{% endblock %}
