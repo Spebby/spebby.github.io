@@ -163,6 +163,20 @@
             zola serve
           '';
         };
+
+        gitHooks = git-hooks.lib.${system}.run {
+          src = ./.;
+          excludes = [ ];
+          hooks = {
+            flake-checker.enable = true;
+            nixfmt = {
+              enable = true;
+              settings.width = 100;
+            };
+            shfmt.enable = true;
+            typos.enable = true;
+          };
+        };
       in
       {
         packages = {
@@ -265,25 +279,12 @@
             pkgs.zizmor
           ] "zizmor --pedantic --min-severity medium --no-online-audits .";
         }
-        // pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
-          git-check = git-hooks.lib.${system}.run {
-            src = ./.;
-            excludes = [ ];
-            hooks = {
-              flake-checker.enable = true;
-              nixfmt = {
-                enable = true;
-                settings.width = 100;
-              };
-              shfmt.enable = true;
-              typos.enable = true;
-            };
-          };
-        };
+        // pkgs.lib.optionalAttrs pkgs.stdenv.isLinux { git-check = gitHooks; };
 
         formatter = pkgs.nixfmt;
 
         devShells.default = pkgs.mkShell {
+          inherit gitHooks;
           packages = [
             dev
             pkgs.actionlint
@@ -297,9 +298,11 @@
             pkgs.typos
             pkgs.zizmor
             pkgs.zola
-          ];
+          ]
+          ++ gitHooks.enabledPackages;
 
           shellHook = ''
+            ${gitHooks.shellHook}
             nix run .#help
           '';
         };
