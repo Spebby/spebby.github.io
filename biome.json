@@ -1,0 +1,6 @@
+{
+  "files": { "includes": ["ts/**", "static/css/**"] },
+  "formatter": { "indentStyle": "space", "indentWidth": 2, "lineWidth": 100 },
+  "css": { "formatter": { "enabled": false } },
+  "linter": { "enabled": true }
+}

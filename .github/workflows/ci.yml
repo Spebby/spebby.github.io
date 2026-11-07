@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  checks:
+    name: Flake checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      # runs every linter (nixfmt, statix, deadnix, tsc, biome, typos, actionlint, zizmor).
+      - name: Run flake checks
+        run: nix flake check --print-build-logs
+
+      - name: Check flake outputs on all systems
+        run: nix flake check --all-systems --no-build
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: checks
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+
+      - uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build site
+        run: nix build --print-build-logs
+
+      - name: Stage site
+        run: cp -rL --no-preserve=mode,ownership result site
+
+      # Pages serves exactly what is uploaded. These two live in dot-paths / outside the
+      # pages themselves and are the easiest to lose.
+      - name: Check required root files
+        run: |
+          test -f site/CNAME
+          test -f site/.well-known/discord
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 #v5
+        with:
+          path: result
+          include-hidden-files: true
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 #v5.0.1

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  {% block meta %}{% endblock %}
+  <meta name="darkreader-lock">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  {% for name in config.extra.stylesheets %}
+  <link rel="stylesheet" href="{{ get_url(path='css/' ~ name ~ '.css') }}?h={{ get_hash(path='static/css/' ~ name ~ '.css', sha_type=256, base64=false) | truncate(length=12, end='') }}">
+  {% endfor %}
+
+  {# Root-relative URLs on purpose: `zola serve` rewrites base_url to 127.0.0.1, and a
+     module script or CSS mask loaded cross-origin (e.g. via localhost) is blocked. #}
+<script type="module" src="{{ get_url(path='js/main.js') }}?h={{ get_hash(path='static/js/main.js', sha_type=256, base64=false) | truncate(length=12, end='') }}"></script>
+</head>
+<body class="shader-fallback" data-base-url="{{ config.base_url }}" data-themes-url="{{ get_url(path='data/themes.txt') }}">
+  {% block body %}{% endblock %}
+</body>
+</html>

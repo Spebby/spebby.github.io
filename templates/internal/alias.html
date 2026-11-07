@@ -1,0 +1,32 @@
+{%- set parts = url | split(pat="/") -%}
+{%- set slug = parts | nth(n=parts | length - 2) -%}
+{%- set home = get_section(path="_index.md") -%}
+
+{%- set_global is_tab = false -%}
+{%- for tab in home.extra.tabs -%}
+  {%- if tab.slug == slug -%}
+    {%- set_global is_tab = true -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- set tab_target = get_url(path="/", trailing_slash=true) ~ "#" ~ slug -%}
+{%- if is_tab -%}
+  {%- set target = tab_target -%}
+{%- else -%}
+  {%- set target = url -%}
+{%- endif -%}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting&hellip;</title>
+  <link rel="canonical" href="{{ target | safe }}">
+  <meta http-equiv="refresh" content="0; url={{ target | safe }}">
+  <meta name="robots" content="noindex">
+  <script>window.location.replace({{ target | json_encode() | safe }});</script>
+</head>
+<body>
+  <p><a href="{{ target | safe }}">Continue</a></p>
+</body>
+</html>

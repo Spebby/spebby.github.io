@@ -1,0 +1,34 @@
+{# One tab's pane. Expects `pane` (a page or the root section) and `slug`. #}
+{% set extra = pane.extra %}
+{% if extra.layout == "split" %}
+<div class="page split" data-page="{{ slug }}"{% if slug != "home" %} hidden{% endif %}>
+  <div class="pane pane-info scrollpane">
+    <h1>{{ pane.title }}</h1>
+    {% if extra.tagline %}<p class="tagline">{{ extra.tagline }}</p>{% endif %}
+    {{ pane.content | safe }}
+    {% if extra.profiles %}
+    <nav class="d-flex flex-wrap" aria-label="Profiles">
+      {% for p in extra.profiles %}
+      <a class="tui-icon-link" href="{{ p.url }}" aria-label="{{ p.label }}" data-label="{{ p.display }}" style="--icon:url('{{ get_url(path='icons/' ~ p.icon ~ '.svg') }}')"></a>
+      {% endfor %}
+    </nav>
+    {% endif %}
+    <div class="more-indicator"></div>
+  </div>
+
+  <div class="pane pane-cards scrollpane">
+    <div class="cards row g-4 justify-content-center" data-projects="{{ get_url(path=extra.projects) }}"></div>
+    <div class="more-indicator"></div>
+  </div>
+</div>
+{% else %}
+<div class="page scrollpane" data-page="{{ slug }}"{% if slug != "home" %} hidden{% endif %}>
+  <h1>{{ pane.title }}</h1>
+  {% if extra.tagline %}<p class="tagline">{{ extra.tagline }}</p>{% endif %}
+  {% if extra.links and extra.links_first %}{% include "partials/links.html" %}{% endif %}
+  {{ pane.content | safe }}
+  {% if extra.links and not extra.links_first %}{% include "partials/links.html" %}{% endif %}
+  {% if extra.layout == "settings" %}<div id="settingsRoot"></div>{% endif %}
+  <div class="more-indicator"></div>
+</div>
+{% endif %}

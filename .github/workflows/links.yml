@@ -1,0 +1,30 @@
+name: External links
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: links-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  links:
+    name: Check external links
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7
+        with:
+          persist-credentials: false
+
+      - uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c #v35
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check links
+        run: nix develop --command bash -c 'esbuild ts/main.ts --bundle --minify --target=es2022 --loader:.glsl=text --outfile=static/js/main.js && zola check'
